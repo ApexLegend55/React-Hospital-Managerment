@@ -66,7 +66,7 @@ const PatientInfo = ({ patients }: any) => {
 
   return (
     <Box sx={{ display: "flex" }}>
-      <Appbar appBarTitle="Patient Information" />
+      <Appbar appBarTitle="General" />
       <Box
         component="main"
         sx={{
@@ -297,7 +297,17 @@ const PatientInfo = ({ patients }: any) => {
                         <Grid item xs={1} sm={1}>
                           <Button type="submit" variant="contained">
                             Save
-                          </Button>
+                          </Button>                          
+                        </Grid>
+                        <Grid item xs={1} sm={1}>
+                          <Button 
+                           component={Link}
+                           to="/patient-list"
+                           color="warning"
+                           variant="contained"
+                           >
+                            History
+                          </Button>                          
                         </Grid>
                       </Grid>
                     </Form>

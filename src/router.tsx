@@ -8,7 +8,8 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import AllOrders from "./pages/Orders/AllOrders";
 import Profile from "./pages/Profile/Profile";
 import DoctorList from "./pages/Profile/DoctorList";
-import PatientInfo from "./pages/PatientInfo/PatientInfo";
+import PatientInfo from "./pages/PatientInfo/PatientGeneralInfo";
+import PatientHistoryInfo from "./pages/PatientInfo/PatientHistoryInfo";
 import PatientList from "./pages/PatientInfo/PatientList";
 import Appointments from "./pages/Appointments/Appointments";
 import Calender from "./pages/Calender/Calender";
@@ -83,6 +84,14 @@ export const router = createBrowserRouter([
     )
   },
   {
+    path: "/patient-info-history/:id",
+    element: (
+      <AdminElement>
+        <PatientHistoryInfo patients={mockPatientData} />
+      </AdminElement>
+    )
+  },
+  {
     path: "/patient-list",
     element: (
       <AdminElement>
@@ -90,6 +99,7 @@ export const router = createBrowserRouter([
       </AdminElement>
     )
   },
+  
   {
     path: "/doctor-list",
     element: (
