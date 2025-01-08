@@ -1,6 +1,7 @@
 import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
-
+import React, { useState } from 'react';
+import '../../styles.css'
 import {
   TextField,
   InputLabel,
@@ -13,6 +14,7 @@ import {
   Divider,
   Paper,
   IconButton,
+  Avatar
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Toolbar from "@mui/material/Toolbar";
@@ -45,8 +47,8 @@ const PatientInfo = ({ patients }: any) => {
   const patient = patients?.find(
     (patient: any) => patient.id === parseInt(id || "", 10)
   );
-
   const initialValues = {
+    id: patient.id,
     firstName: patient.firstName,
     lastName: patient.lastName,
     address: patient.address,
@@ -81,6 +83,7 @@ const PatientInfo = ({ patients }: any) => {
         }}
       >
         <Toolbar />
+        
         <Container sx={{ mt: 4, mb: 4 }}>
           <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
             <Grid
@@ -88,9 +91,8 @@ const PatientInfo = ({ patients }: any) => {
               spacing={2}
               sx={{ marginleft: "10px", padding: "20px" }}
             >
-              <IconButton component={Link} to="/patient-list" color="inherit">
-                <ArrowBackIcon />
-              </IconButton>
+              
+              
               <Grid item xs={12}>
                 <Formik
                   initialValues={initialValues}
@@ -98,17 +100,41 @@ const PatientInfo = ({ patients }: any) => {
                   onSubmit={handleSubmit}
                 >
                   {({ errors, touched }) => (
-                    <Form>  
+                    
+                    <Form>
+                      <Grid item xs={12} sm={12}>
+                      <div className="setside">
+                        <div className="left">
+                          <IconButton component={Link} to="/patient-list" color="inherit">
+                            <ArrowBackIcon />
+                          </IconButton>
+                        </div>
+                        <div className="right">
+                          <label htmlFor="contained-button-file">
+                            <IconButton>
+                            <Avatar 
+                              variant="square"
+                              src="img/doctor.jpg" 
+                              style={{
+                                width: "100px",
+                                height: "100px",
+                              }} 
+                              />
+                            </IconButton>
+                          </label>
+                        </div>
+                      </div>
+                        </Grid>  
+                      
                      <Grid container spacing={2}>
-                        <Grid item xs={12} sm={4}>
+                        <Grid item xs={12} sm={2}>
                           <Field
                             as={TextField}
-                            name="firstName"
+                            name="id"
                             label="Chart"
                             fullWidth
-                            error={errors.firstName && touched.firstName}
-                            helperText={touched.firstName && errors.firstName}
                           />
+                          
                         </Grid>
                         <Grid item xs={12} sm={4}>
                           <Field
@@ -129,18 +155,8 @@ const PatientInfo = ({ patients }: any) => {
                             error={errors.lastName && touched.lastName}
                             helperText={touched.lastName && errors.lastName}
                           />
-                        </Grid>                                               
-                        <Grid item xs={12} sm={6}>
-                          <Field
-                            as={TextField}
-                            name="email"
-                            label="Email"
-                            fullWidth
-                            error={errors.email && touched.email}
-                            helperText={touched.email && errors.email}
-                          />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
+                        </Grid>                     
+                        <Grid item xs={12} sm={2}>
                           <Field
                             as={TextField}
                             name="age"
@@ -158,7 +174,7 @@ const PatientInfo = ({ patients }: any) => {
                             <Grid item xs={12} sm={12}>
                               <div style={styles.field}>
                                 <label>ID:</label>
-                                <input type="text" placeholder="Delmas65" style={styles.input} />
+                                <input type="text" placeholder="" style={styles.input} />
                               </div>
                             </Grid>                                                                            
                             <Grid item xs={12} sm={12}>
@@ -170,7 +186,7 @@ const PatientInfo = ({ patients }: any) => {
                             <Grid item xs={12} sm={12}>
                               <div style={styles.field}>
                                 <label>DOB:</label>
-                                <input type="text" placeholder="" style={styles.input} />
+                                <input type="date" placeholder="" style={styles.input} />
                               </div>
                             </Grid>
                             <Grid item xs={12} sm={12}>
@@ -489,138 +505,7 @@ const PatientInfo = ({ patients }: any) => {
                             </Grid>
                           </div>
                         </Grid>                      
-                        <Grid item xs={12} sm={6}>
-                          <Field
-                            as={TextField}
-                            name="age"
-                            label="Age"
-                            fullWidth
-                            error={touched.age && Boolean(errors.age)}
-                            helperText={touched.age && errors.age}
-                          />
-                        </Grid>
-                      </Grid>
-                      <Grid container spacing={2}>
-                        <Grid item xs={12} sm={6}>
-                          <InputLabel
-                            id="blood-group-label"
-                            sx={{ align: "left" }}
-                          >
-                            Blood Group
-                          </InputLabel>
-                          <Select
-                            name="bloodGroup"
-                            labelId="blood-group-label"
-                            // value={values.bloodGroup}
-                            // onChange={handleChange}
-                            error={
-                              touched.bloodGroup && Boolean(errors.bloodGroup)
-                            }
-                            fullWidth
-                          >
-                            <MenuItem value="">Select blood group</MenuItem>
-                            <MenuItem value="A+">A+</MenuItem>
-                            <MenuItem value="A-">A-</MenuItem>
-                            <MenuItem value="B+">B+</MenuItem>
-                            <MenuItem value="B-">B-</MenuItem>
-                            <MenuItem value="AB+">AB+</MenuItem>
-                            <MenuItem value="AB-">AB-</MenuItem>
-                            <MenuItem value="O+">O+</MenuItem>
-                            <MenuItem value="O-">O-</MenuItem>
-                          </Select>
-                          {touched.bloodGroup && errors.bloodGroup && (
-                            <Box mt={1} color="red">
-                              {Object.values(errors.bloodGroup).map(
-                                (error: any, index) => (
-                                  <div key={index}>{error}</div>
-                                )
-                              )}
-                            </Box>
-                          )}
-                        </Grid>
-
-                        <Divider />
-
-                        <Grid item xs={12}>
-                          <Typography variant="h6" align="left">
-                            Referred by Doctor:
-                          </Typography>
-                        </Grid>
-                        <Grid item xs={12}>
-                          <Field
-                            as={TextField}
-                            name="referredByDoctor"
-                            label="Doctor's Name"
-                            fullWidth
-                            error={
-                              errors.referredByDoctor &&
-                              touched.referredByDoctor
-                            }
-                            helperText={
-                              touched.referredByDoctor &&
-                              errors.referredByDoctor
-                            }
-                          />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                          <TextField
-                            fullWidth
-                            name="doctorEmail"
-                            // value={values.doctorEmail}
-                            // onChange={handleChange}
-                            label="Doctor's Email"
-                          />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                          <TextField
-                            fullWidth
-                            name="doctorPhone"
-                            // value={values.doctorPhone}
-                            // onChange={handleChange}
-                            label="Doctor's Phone"
-                          />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                          <TextField
-                            label="Diseases"
-                            name="diseases"
-                            // value={values.diseases}
-                            // onChange={handleChange}
-                            // onBlur={handleBlur}
-                            fullWidth
-                          />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                          <TextField
-                            label="Patient History"
-                            name="patientHistory"
-                            // value={values.patientHistory}
-                            // onChange={handleChange}
-                            // onBlur={handleBlur}
-                            fullWidth
-                          />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                          <TextField
-                            label="Attachments"
-                            name="attachments"
-                            // value={values.attachments}
-                            // onChange={handleChange}
-                            // onBlur={handleBlur}
-                            fullWidth
-                          />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                          <TextField
-                            label="Handled By"
-                            name="handledBy"
-                            // value={values.handledBy}
-                            // onChange={handleChange}
-                            // onBlur={handleBlur}
-                            fullWidth
-                          />
-                        </Grid>
-                      </Grid>
+                      </Grid>                     
                       <br />
                       <Grid container justifyContent="flex-end">
                         <Grid item xs={2} sm={1}>
@@ -689,6 +574,7 @@ const styles = {
     border: '1px solid lightgray',
     borderRadius: '3px',
   },
+ 
 };
 
 export default PatientInfo;
