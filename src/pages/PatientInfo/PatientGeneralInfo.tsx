@@ -1,5 +1,6 @@
 import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
+
 import {
   TextField,
   InputLabel,
@@ -97,9 +98,19 @@ const PatientInfo = ({ patients }: any) => {
                   onSubmit={handleSubmit}
                 >
                   {({ errors, touched }) => (
-                    <Form>
-                      <Grid container spacing={2}>
-                        <Grid item xs={12} sm={6}>
+                    <Form>  
+                     <Grid container spacing={2}>
+                        <Grid item xs={12} sm={4}>
+                          <Field
+                            as={TextField}
+                            name="firstName"
+                            label="Chart"
+                            fullWidth
+                            error={errors.firstName && touched.firstName}
+                            helperText={touched.firstName && errors.firstName}
+                          />
+                        </Grid>
+                        <Grid item xs={12} sm={4}>
                           <Field
                             as={TextField}
                             name="firstName"
@@ -109,7 +120,7 @@ const PatientInfo = ({ patients }: any) => {
                             helperText={touched.firstName && errors.firstName}
                           />
                         </Grid>
-                        <Grid item xs={12} sm={6}>
+                        <Grid item xs={12} sm={4}>
                           <Field
                             as={TextField}
                             name="lastName"
@@ -118,29 +129,7 @@ const PatientInfo = ({ patients }: any) => {
                             error={errors.lastName && touched.lastName}
                             helperText={touched.lastName && errors.lastName}
                           />
-                        </Grid>
-                        <Grid item xs={12}>
-                          <Field
-                            as={TextField}
-                            name="address"
-                            label="Address"
-                            fullWidth
-                            error={errors.address && touched.address}
-                            helperText={touched.address && errors.address}
-                          />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                          <Field
-                            as={TextField}
-                            name="phoneNumber"
-                            label="Phone Number"
-                            fullWidth
-                            error={errors.phoneNumber && touched.phoneNumber}
-                            helperText={
-                              touched.phoneNumber && errors.phoneNumber
-                            }
-                          />
-                        </Grid>
+                        </Grid>                                               
                         <Grid item xs={12} sm={6}>
                           <Field
                             as={TextField}
@@ -151,6 +140,355 @@ const PatientInfo = ({ patients }: any) => {
                             helperText={touched.email && errors.email}
                           />
                         </Grid>
+                        <Grid item xs={12} sm={6}>
+                          <Field
+                            as={TextField}
+                            name="age"
+                            label="Age"
+                            fullWidth
+                            error={touched.age && Boolean(errors.age)}
+                            helperText={touched.age && errors.age}
+                          />
+                        </Grid>
+                      </Grid>                     
+                      <Grid container spacing={2}>                        
+                        <Grid item xs={6} sm={6}>
+                        <div style={styles.container} >
+                            <h2>Contact Information</h2>
+                            <Grid item xs={12} sm={12}>
+                              <div style={styles.field}>
+                                <label>ID:</label>
+                                <input type="text" placeholder="Delmas65" style={styles.input} />
+                              </div>
+                            </Grid>                                                                            
+                            <Grid item xs={12} sm={12}>
+                              <div style={styles.field}>
+                                <label>MRN:</label>
+                                <input type="text" placeholder="" style={styles.input} />
+                              </div>
+                            </Grid>
+                            <Grid item xs={12} sm={12}>
+                              <div style={styles.field}>
+                                <label>DOB:</label>
+                                <input type="text" placeholder="" style={styles.input} />
+                              </div>
+                            </Grid>
+                            <Grid item xs={12} sm={12}>
+                              <div style={styles.field}>
+                                <label>Gender:</label>
+                                <input type="text" placeholder="" style={styles.input} />
+                              </div>
+                            </Grid>                                                                            
+                            <Grid item xs={12} sm={12}>
+                              <div style={styles.field}>
+                                <label>Marriage:</label>
+                                <input type="text" placeholder="" style={styles.input} />
+                              </div>
+                            </Grid>
+                            <Grid item xs={12} sm={12}>
+                              <div style={styles.field}>
+                                <label>Siblings:</label>
+                                <input type="text" placeholder="" style={styles.input} />
+                              </div>
+                            </Grid>
+                            <Grid item xs={12} sm={12}>
+                              <div style={styles.field}>
+                                <label>Race:</label>
+                                <input type="text" placeholder="" style={styles.input} />
+                              </div>
+                            </Grid>
+                            <Grid item xs={12} sm={12}>
+                              <div style={styles.field}>
+                                <label>Pharmacy:</label>
+                                <input type="text" placeholder="" style={styles.input} />
+                              </div>
+                            </Grid>
+                            <Grid item xs={12} sm={12}>
+                              <div style={styles.field}>
+                                <label>Other:</label>
+                                <input type="text" placeholder="" style={styles.input} />
+                              </div>
+                            </Grid>
+                          </div>
+                          <div style={styles.container}>
+                            <h2>Contact Information</h2>
+                            <Grid item xs={12} sm={12}>
+                              <div style={styles.field}>
+                                <label>Address:</label>
+                                <input type="text" placeholder="Delmas65" style={styles.input} />
+                              </div>
+                            </Grid>                                                                            
+                            <Grid item xs={12} sm={12}>
+                              <div style={styles.field}>
+                                <label>City:</label>
+                                <input type="text" placeholder="" style={styles.input} />
+                              </div>
+                            </Grid>
+                            <Grid item xs={12} sm={12}>
+                              <div style={styles.field}>
+                                <label>Postcode:</label>
+                                <input type="text" placeholder="" style={styles.input} />
+                              </div>
+                            </Grid>
+                            <Grid item xs={12} sm={12}>
+                              <div style={styles.field}>
+                                <label>Country:</label>
+                                <input type="text" placeholder="" style={styles.input} />
+                              </div>
+                            </Grid>                                                                            
+                            <Grid item xs={12} sm={12}>
+                              <div style={styles.field}>
+                                <label>State:</label>
+                                <input type="text" placeholder="" style={styles.input} />
+                              </div>
+                            </Grid>
+                            <Grid item xs={12} sm={12}>
+                              <div style={styles.field}>
+                                <label>Home Ph:</label>
+                                <input type="text" placeholder="" style={styles.input} />
+                              </div>
+                            </Grid>
+                            <Grid item xs={12} sm={12}>
+                              <div style={styles.field}>
+                                <label>Cell Ph:</label>
+                                <input type="text" placeholder="" style={styles.input} />
+                              </div>
+                            </Grid>
+                            <Grid item xs={12} sm={12}>
+                              <div style={styles.field}>
+                                <label>Email:</label>
+                                <input type="text" placeholder="" style={styles.input} />
+                              </div>
+                            </Grid>
+                            <Grid item xs={12} sm={12}>
+                              <div style={styles.field}>
+                                <label>Emergency:</label>
+                                <input type="text" placeholder="" style={styles.input} />
+                              </div>
+                            </Grid>
+                          </div>
+                          <div style={styles.container}>
+                            <h2>Work Information</h2>
+                            <Grid item xs={12} sm={12}>
+                              <div style={styles.field}>
+                                <label>Status:</label>
+                                <input type="text" placeholder="Delmas65" style={styles.input} />
+                              </div>
+                            </Grid>                                                                            
+                            <Grid item xs={12} sm={12}>
+                              <div style={styles.field}>
+                                <label>Employer:</label>
+                                <input type="text" placeholder="" style={styles.input} />
+                              </div>
+                            </Grid>
+                            <Grid item xs={12} sm={12}>
+                              <div style={styles.field}>
+                                <label>Work Ph:</label>
+                                <input type="text" placeholder="" style={styles.input} />
+                              </div>
+                            </Grid>                            
+                          </div>
+                        </Grid>  
+                        <Grid item xs={6} sm={6}>
+                          <div style={styles.container}>
+                            <h2>Insurance 1</h2>
+                            <Grid item xs={12} sm={12} lg={12}>
+                              <div style={styles.field}>
+                                <label>Carrier:</label>
+                                <input type="text" placeholder="" style={styles.input} />
+                              </div>
+                            </Grid>                                                                            
+                            <Grid item xs={12} sm={12} lg={12}>
+                              <div style={styles.field}>
+                                <label>Address:</label>
+                                <input type="text" placeholder="" style={styles.input} />
+                              </div>
+                            </Grid>
+                            <Grid item xs={12} sm={12} lg={12}>
+                              <div style={styles.field}>
+                                <label>City:</label>
+                                <input type="text" placeholder="" style={styles.input} />
+                              </div>
+                            </Grid>
+                            <Grid item xs={12} sm={12} lg={12}>
+                              <div style={styles.field}>
+                                <label>Postcode:</label>
+                                <input type="text" placeholder="" style={styles.input} />
+                              </div>
+                            </Grid>                                                                            
+                            <Grid item xs={12} sm={12} lg={12}>
+                              <div style={styles.field}>
+                                <label>Country:</label>
+                                <input type="text" placeholder="" style={styles.input} />
+                              </div>
+                            </Grid>
+                            <Grid item xs={12} sm={12} lg={12}>
+                              <div style={styles.field}>
+                                <label>State:</label>
+                                <input type="text" placeholder="" style={styles.input} />
+                              </div>
+                            </Grid>
+                            <Grid item xs={12} sm={12} lg={12}>
+                              <div style={styles.field}>
+                                <label>Phone:</label>
+                                <input type="text" placeholder="" style={styles.input} />
+                              </div>
+                            </Grid>
+                            <Grid item xs={12} sm={12} lg={12}>
+                              <div style={styles.field}>
+                                <label>Facsimile:</label>
+                                <input type="text" placeholder="" style={styles.input} />
+                              </div>
+                            </Grid>
+                            <Grid item xs={12} sm={12} lg={12}>
+                              <div style={styles.field}>
+                                <label>Plan:</label>
+                                <input type="text" placeholder="" style={styles.input} />
+                              </div>
+                            </Grid>
+                            <Grid item xs={12} sm={12} lg={12}>
+                              <div style={styles.field}>
+                                <label>Expiry:</label>
+                                <input type="text" placeholder="" style={styles.input} />
+                              </div>
+                            </Grid>
+                            <Grid item xs={12} sm={12} lg={12}>
+                              <div style={styles.field}>
+                                <label>ID No:</label>
+                                <input type="text" placeholder="" style={styles.input} />
+                              </div>
+                            </Grid>
+                            <Grid item xs={12} sm={12} lg={12}>
+                              <div style={styles.field}>
+                                <label>Group No:</label>
+                                <input type="text" placeholder="" style={styles.input} />
+                              </div>
+                            </Grid>
+                            <Grid item xs={12} sm={12} lg={12}>
+                              <div style={styles.field}>
+                                <label>Copay:</label>
+                                <input type="text" placeholder="" style={styles.input} />
+                              </div>
+                            </Grid>
+                            <Grid item xs={12} sm={12} lg={12}>
+                              <div style={styles.field}>
+                                <label>Auth No:</label>
+                                <input type="text" placeholder="" style={styles.input} />
+                              </div>
+                            </Grid>
+                            <Grid item xs={12} sm={12} lg={12}>
+                              <div style={styles.field}>
+                                <label>Remarks:</label>
+                                <input type="text" placeholder="" style={styles.input} />
+                              </div>
+                            </Grid>
+                            <Grid item xs={12} sm={12} lg={12}>
+                              <div style={styles.field}>
+                                <label>Plan:</label>
+                                <input type="text" placeholder="" style={styles.input} />
+                              </div>
+                            </Grid>
+                          </div>
+                          <div style={styles.container}>
+                            <h2>Insurance 2</h2>
+                            <Grid item xs={12} sm={12} lg={12}>
+                              <div style={styles.field}>
+                                <label>Carrier:</label>
+                                <input type="text" placeholder="" style={styles.input} />
+                              </div>
+                            </Grid>                                                                            
+                            <Grid item xs={12} sm={12} lg={12}>
+                              <div style={styles.field}>
+                                <label>Address:</label>
+                                <input type="text" placeholder="" style={styles.input} />
+                              </div>
+                            </Grid>
+                            <Grid item xs={12} sm={12} lg={12}>
+                              <div style={styles.field}>
+                                <label>City:</label>
+                                <input type="text" placeholder="" style={styles.input} />
+                              </div>
+                            </Grid>
+                            <Grid item xs={12} sm={12} lg={12}>
+                              <div style={styles.field}>
+                                <label>Postcode:</label>
+                                <input type="text" placeholder="" style={styles.input} />
+                              </div>
+                            </Grid>                                                                            
+                            <Grid item xs={12} sm={12} lg={12}>
+                              <div style={styles.field}>
+                                <label>Country:</label>
+                                <input type="text" placeholder="" style={styles.input} />
+                              </div>
+                            </Grid>
+                            <Grid item xs={12} sm={12} lg={12}>
+                              <div style={styles.field}>
+                                <label>State:</label>
+                                <input type="text" placeholder="" style={styles.input} />
+                              </div>
+                            </Grid>
+                            <Grid item xs={12} sm={12} lg={12}>
+                              <div style={styles.field}>
+                                <label>Phone:</label>
+                                <input type="text" placeholder="" style={styles.input} />
+                              </div>
+                            </Grid>
+                            <Grid item xs={12} sm={12} lg={12}>
+                              <div style={styles.field}>
+                                <label>Facsimile:</label>
+                                <input type="text" placeholder="" style={styles.input} />
+                              </div>
+                            </Grid>
+                            <Grid item xs={12} sm={12} lg={12}>
+                              <div style={styles.field}>
+                                <label>Plan:</label>
+                                <input type="text" placeholder="" style={styles.input} />
+                              </div>
+                            </Grid>
+                            <Grid item xs={12} sm={12} lg={12}>
+                              <div style={styles.field}>
+                                <label>Expiry:</label>
+                                <input type="text" placeholder="" style={styles.input} />
+                              </div>
+                            </Grid>
+                            <Grid item xs={12} sm={12} lg={12}>
+                              <div style={styles.field}>
+                                <label>ID No:</label>
+                                <input type="text" placeholder="" style={styles.input} />
+                              </div>
+                            </Grid>
+                            <Grid item xs={12} sm={12} lg={12}>
+                              <div style={styles.field}>
+                                <label>Group No:</label>
+                                <input type="text" placeholder="" style={styles.input} />
+                              </div>
+                            </Grid>
+                            <Grid item xs={12} sm={12} lg={12}>
+                              <div style={styles.field}>
+                                <label>Copay:</label>
+                                <input type="text" placeholder="" style={styles.input} />
+                              </div>
+                            </Grid>
+                            <Grid item xs={12} sm={12} lg={12}>
+                              <div style={styles.field}>
+                                <label>Auth No:</label>
+                                <input type="text" placeholder="" style={styles.input} />
+                              </div>
+                            </Grid>
+                            <Grid item xs={12} sm={12} lg={12}>
+                              <div style={styles.field}>
+                                <label>Remarks:</label>
+                                <input type="text" placeholder="" style={styles.input} />
+                              </div>
+                            </Grid>
+                            <Grid item xs={12} sm={12} lg={12}>
+                              <div style={styles.field}>
+                                <label>Plan:</label>
+                                <input type="text" placeholder="" style={styles.input} />
+                              </div>
+                            </Grid>
+                          </div>
+                        </Grid>                      
                         <Grid item xs={12} sm={6}>
                           <Field
                             as={TextField}
@@ -320,6 +658,37 @@ const PatientInfo = ({ patients }: any) => {
       </Box>
     </Box>
   );
+};
+
+const styles = {
+  container: {
+    border: '1px solid lightgray',
+    borderRadius: '5px',
+    padding: '20px',
+    margin: 'auto',
+    marginTop: '4px'
+  },
+  header: {
+    textAlign: 'center',
+  },
+   subHeader: {
+    marginTop: '20px',
+  },
+  field: {
+    display: 'flex',
+    alignItems: 'center',
+    marginBottom: '10px',
+  },
+  label: {
+    marginLeft: '10px',
+  },
+  input: {
+    flex: 1,
+    marginLeft: '10px',
+    padding: '5px',
+    border: '1px solid lightgray',
+    borderRadius: '3px',
+  },
 };
 
 export default PatientInfo;

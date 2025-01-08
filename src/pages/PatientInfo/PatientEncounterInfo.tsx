@@ -39,7 +39,7 @@ const PatientInfoSchema = Yup.object().shape({
   patientHistory: Yup.string(),
 });
 
-const PatientInfo = ({ patients }: any) => {
+const PatientEncounterInfo = ({ patients }: any) => {
   const { id } = useParams<{ id: string }>();
   const patient = patients?.find(
     (patient: any) => patient.id === parseInt(id || "", 10)
@@ -87,7 +87,7 @@ const PatientInfo = ({ patients }: any) => {
               spacing={2}
               sx={{ marginleft: "10px", padding: "20px" }}
             >
-              <IconButton component={Link} to={`/patient-info/${patient.id}`} color="inherit">
+              <IconButton component={Link} to={`/patient-info-history/${patient.id}`} color="inherit">
                 <ArrowBackIcon />
               </IconButton>
               <Grid item xs={12}>
@@ -300,13 +300,11 @@ const PatientInfo = ({ patients }: any) => {
                           </Button>                          
                         </Grid>
                         <Grid item xs={2} sm={1}>
-                          <Button 
-                           component={Link}
-                           to={`/patient-info-encounter/${patient.id}`}
+                          <Button                            
                            color="warning"
                            variant="contained"
                            >
-                            Encounter
+                            Print
                           </Button>                          
                         </Grid>
                       </Grid>
@@ -322,4 +320,4 @@ const PatientInfo = ({ patients }: any) => {
   );
 };
 
-export default PatientInfo;
+export default PatientEncounterInfo;
