@@ -90,9 +90,7 @@ const PatientInfo = ({ patients }: any) => {
               container
               spacing={2}
               sx={{ marginleft: "10px", padding: "20px" }}
-            >
-              
-              
+            >           
               <Grid item xs={12}>
                 <Formik
                   initialValues={initialValues}
@@ -174,13 +172,13 @@ const PatientInfo = ({ patients }: any) => {
                             <Grid item xs={12} sm={12}>
                               <div style={styles.field}>
                                 <label>ID:</label>
-                                <input type="text" placeholder="" style={styles.input} />
+                                <input width="80%" type="text" placeholder="" style={styles.input} />
                               </div>
                             </Grid>                                                                            
                             <Grid item xs={12} sm={12}>
                               <div style={styles.field}>
                                 <label>MRN:</label>
-                                <input type="text" placeholder="" style={styles.input} />
+                                <input  type="text" placeholder="" style={styles.input} />
                               </div>
                             </Grid>
                             <Grid item xs={12} sm={12}>
