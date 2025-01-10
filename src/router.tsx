@@ -18,6 +18,7 @@ import Kanban from "./pages/Kanban/Kanban";
 import Account from "./pages/Account/Account";
 import Settings from "./pages/Settings/Settings";
 import { mockPatientData } from "./mockData";
+import PdfViewer from "./components/Pdf";
 
 const USER_TYPES = {
   NORMAL_USER: "Normal User",
@@ -154,6 +155,14 @@ export const router = createBrowserRouter([
     element: (
       <AdminElement>
         <Settings />
+      </AdminElement>
+    )
+  },
+  {
+    path: "/pdf-viewer",
+    element: (
+      <AdminElement>
+        <PdfViewer />
       </AdminElement>
     )
   }

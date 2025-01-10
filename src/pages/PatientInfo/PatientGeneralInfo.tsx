@@ -22,6 +22,7 @@ import Container from "@mui/material/Container";
 import Appbar from "../../components/Appbar";
 import { Link, useParams } from "react-router-dom";
 
+
 const PatientInfoSchema = Yup.object().shape({
   firstName: Yup.string().required("Required"),
   lastName: Yup.string().required("Required"),
@@ -106,16 +107,11 @@ const PatientInfo = ({ patients }: any) => {
                           <IconButton component={Link} to="/patient-list" color="inherit">
                             <ArrowBackIcon />
                           </IconButton>
-                        </div>
-                        <div className="right">
-                          <label htmlFor="contained-button-file">
-                            
-                          </label>
-                        </div>
+                        </div>                        
                       </div>
                         </Grid>  
                       
-                     <Grid container spacing={2} style={{alignItems:'center'}}>
+                     <Grid container spacing={2} sx={{justifyContent: "space-between",alignItems: "center",}}>
                         <Grid item xs={12} sm={2}>
                           <Field
                             as={TextField}
@@ -156,8 +152,8 @@ const PatientInfo = ({ patients }: any) => {
                           />
                         </Grid>
                         <Grid item xs={12} sm={1} style={{textAlign:'right'}}>
-                          <IconButton component={Link} to="/patient-list" color="inherit">
-                            <DocumentScannerIcon
+                          <IconButton component={Link} to="/pdf-viewer" color="inherit">
+                            <DocumentScannerIcon                              
                               style={{
                                 width:"50px",
                                 height: "50px",
@@ -170,7 +166,6 @@ const PatientInfo = ({ patients }: any) => {
                           <IconButton style={{padding:'0'}}>
                               <Avatar 
                                 variant="square"
-                                src="img/doctor.jpg" 
                                 style={{
                                   width: "100px",
                                   height: "100px",
@@ -183,58 +178,58 @@ const PatientInfo = ({ patients }: any) => {
                       <Grid container spacing={2}>                        
                         <Grid item xs={6} sm={6}>
                         <div className="contact-info" style={styles.container} >
-                            <h2>Contact Information</h2>
+                            <h2>Personal Information</h2>
                             <Grid item xs={12} sm={12}>
                               <div style={styles.field}>
-                                <label>ID:</label>
-                                <input width="80%" type="text" placeholder="" style={styles.input} />
+                                <label style={{width:'20%'}}>ID:</label>
+                                <input type="text" placeholder="" style={styles.input} />
                               </div>
                             </Grid>                                                                            
                             <Grid item xs={12} sm={12}>
                               <div style={styles.field}>
-                                <label>MRN:</label>
+                                <label style={{width:'20%'}}>MRN:</label>
                                 <input  type="text" placeholder="" style={styles.input} />
                               </div>
                             </Grid>
                             <Grid item xs={12} sm={12}>
                               <div style={styles.field}>
-                                <label>DOB:</label>
+                                <label style={{width:'20%'}}>DOB:</label>
                                 <input type="date" placeholder="" style={styles.input} />
                               </div>
                             </Grid>
                             <Grid item xs={12} sm={12}>
                               <div style={styles.field}>
-                                <label>Gender:</label>
+                                <label style={{width:'20%'}}>Gender:</label>
                                 <input type="text" placeholder="" style={styles.input} />
                               </div>
                             </Grid>                                                                            
                             <Grid item xs={12} sm={12}>
                               <div style={styles.field}>
-                                <label>Marriage:</label>
+                                <label style={{width:'20%'}}>Marriage:</label>
                                 <input type="text" placeholder="" style={styles.input} />
                               </div>
                             </Grid>
                             <Grid item xs={12} sm={12}>
                               <div style={styles.field}>
-                                <label>Siblings:</label>
+                                <label style={{width:'20%'}}>Siblings:</label>
                                 <input type="text" placeholder="" style={styles.input} />
                               </div>
                             </Grid>
                             <Grid item xs={12} sm={12}>
                               <div style={styles.field}>
-                                <label>Race:</label>
+                                <label style={{width:'20%'}}>Race:</label>
                                 <input type="text" placeholder="" style={styles.input} />
                               </div>
                             </Grid>
                             <Grid item xs={12} sm={12}>
                               <div style={styles.field}>
-                                <label>Pharmacy:</label>
+                                <label style={{width:'20%'}}>Pharmacy:</label>
                                 <input type="text" placeholder="" style={styles.input} />
                               </div>
                             </Grid>
                             <Grid item xs={12} sm={12}>
                               <div style={styles.field}>
-                                <label>Other:</label>
+                                <label style={{width:'20%'}}>Other:</label>
                                 <input type="text" placeholder="" style={styles.input} />
                               </div>
                             </Grid>
@@ -243,55 +238,55 @@ const PatientInfo = ({ patients }: any) => {
                             <h2>Contact Information</h2>
                             <Grid item xs={12} sm={12}>
                               <div style={styles.field}>
-                                <label>Address:</label>
+                                <label style={{width:'20%'}}>Address:</label>
                                 <input type="text" placeholder="Delmas65" style={styles.input} />
                               </div>
                             </Grid>                                                                            
                             <Grid item xs={12} sm={12}>
                               <div style={styles.field}>
-                                <label>City:</label>
+                                <label style={{width:'20%'}}>City:</label>
                                 <input type="text" placeholder="" style={styles.input} />
                               </div>
                             </Grid>
                             <Grid item xs={12} sm={12}>
                               <div style={styles.field}>
-                                <label>Postcode:</label>
+                                <label style={{width:'20%'}}>Postcode:</label>
                                 <input type="text" placeholder="" style={styles.input} />
                               </div>
                             </Grid>
                             <Grid item xs={12} sm={12}>
                               <div style={styles.field}>
-                                <label>Country:</label>
+                                <label style={{width:'20%'}}>Country:</label>
                                 <input type="text" placeholder="" style={styles.input} />
                               </div>
                             </Grid>                                                                            
                             <Grid item xs={12} sm={12}>
                               <div style={styles.field}>
-                                <label>State:</label>
+                                <label style={{width:'20%'}}>State:</label>
                                 <input type="text" placeholder="" style={styles.input} />
                               </div>
                             </Grid>
                             <Grid item xs={12} sm={12}>
                               <div style={styles.field}>
-                                <label>Home Ph:</label>
+                                <label style={{width:'20%'}}>Home Ph:</label>
                                 <input type="text" placeholder="" style={styles.input} />
                               </div>
                             </Grid>
                             <Grid item xs={12} sm={12}>
                               <div style={styles.field}>
-                                <label>Cell Ph:</label>
+                                <label style={{width:'20%'}}>Cell Ph:</label>
                                 <input type="text" placeholder="" style={styles.input} />
                               </div>
                             </Grid>
                             <Grid item xs={12} sm={12}>
                               <div style={styles.field}>
-                                <label>Email:</label>
+                                <label style={{width:'20%'}}>Email:</label>
                                 <input type="text" placeholder="" style={styles.input} />
                               </div>
                             </Grid>
                             <Grid item xs={12} sm={12}>
                               <div style={styles.field}>
-                                <label>Emergency:</label>
+                                <label style={{width:'20%'}}>Emergency:</label>
                                 <input type="text" placeholder="" style={styles.input} />
                               </div>
                             </Grid>
@@ -302,97 +297,97 @@ const PatientInfo = ({ patients }: any) => {
                             <h2>Insurance 1</h2>
                             <Grid item xs={12} sm={12} lg={12}>
                               <div style={styles.field}>
-                                <label>Carrier:</label>
+                                <label style={{width:'20%'}}>Carrier:</label>
                                 <input type="text" placeholder="" style={styles.input} />
                               </div>
                             </Grid>                                                                            
                             <Grid item xs={12} sm={12} lg={12}>
                               <div style={styles.field}>
-                                <label>Address:</label>
+                                <label style={{width:'20%'}}>Address:</label>
                                 <input type="text" placeholder="" style={styles.input} />
                               </div>
                             </Grid>
                             <Grid item xs={12} sm={12} lg={12}>
                               <div style={styles.field}>
-                                <label>City:</label>
+                                <label style={{width:'20%'}}>City:</label>
                                 <input type="text" placeholder="" style={styles.input} />
                               </div>
                             </Grid>
                             <Grid item xs={12} sm={12} lg={12}>
                               <div style={styles.field}>
-                                <label>Postcode:</label>
+                                <label style={{width:'20%'}}>Postcode:</label>
                                 <input type="text" placeholder="" style={styles.input} />
                               </div>
                             </Grid>                                                                            
                             <Grid item xs={12} sm={12} lg={12}>
                               <div style={styles.field}>
-                                <label>Country:</label>
+                                <label style={{width:'20%'}}>Country:</label>
                                 <input type="text" placeholder="" style={styles.input} />
                               </div>
                             </Grid>
                             <Grid item xs={12} sm={12} lg={12}>
                               <div style={styles.field}>
-                                <label>State:</label>
+                                <label style={{width:'20%'}}>State:</label>
                                 <input type="text" placeholder="" style={styles.input} />
                               </div>
                             </Grid>
                             <Grid item xs={12} sm={12} lg={12}>
                               <div style={styles.field}>
-                                <label>Phone:</label>
+                                <label style={{width:'20%'}}>Phone:</label>
                                 <input type="text" placeholder="" style={styles.input} />
                               </div>
                             </Grid>
                             <Grid item xs={12} sm={12} lg={12}>
                               <div style={styles.field}>
-                                <label>Facsimile:</label>
+                                <label style={{width:'20%'}}>Facsimile:</label>
                                 <input type="text" placeholder="" style={styles.input} />
                               </div>
                             </Grid>
                             <Grid item xs={12} sm={12} lg={12}>
                               <div style={styles.field}>
-                                <label>Plan:</label>
+                                <label style={{width:'20%'}}>Plan:</label>
                                 <input type="text" placeholder="" style={styles.input} />
                               </div>
                             </Grid>
                             <Grid item xs={12} sm={12} lg={12}>
                               <div style={styles.field}>
-                                <label>Expiry:</label>
+                                <label style={{width:'20%'}}>Expiry:</label>
                                 <input type="text" placeholder="" style={styles.input} />
                               </div>
                             </Grid>
                             <Grid item xs={12} sm={12} lg={12}>
                               <div style={styles.field}>
-                                <label>ID No:</label>
+                                <label style={{width:'20%'}}>ID No:</label>
                                 <input type="text" placeholder="" style={styles.input} />
                               </div>
                             </Grid>
                             <Grid item xs={12} sm={12} lg={12}>
                               <div style={styles.field}>
-                                <label>Group No:</label>
+                                <label style={{width:'20%'}}>Group No:</label>
                                 <input type="text" placeholder="" style={styles.input} />
                               </div>
                             </Grid>
                             <Grid item xs={12} sm={12} lg={12}>
                               <div style={styles.field}>
-                                <label>Copay:</label>
+                                <label style={{width:'20%'}}>Copay:</label>
                                 <input type="text" placeholder="" style={styles.input} />
                               </div>
                             </Grid>
                             <Grid item xs={12} sm={12} lg={12}>
                               <div style={styles.field}>
-                                <label>Auth No:</label>
+                                <label style={{width:'20%'}}>Auth No:</label>
                                 <input type="text" placeholder="" style={styles.input} />
                               </div>
                             </Grid>
                             <Grid item xs={12} sm={12} lg={12}>
                               <div style={styles.field}>
-                                <label>Remarks:</label>
+                                <label style={{width:'20%'}}>Remarks:</label>
                                 <input type="text" placeholder="" style={styles.input} />
                               </div>
                             </Grid>
                             <Grid item xs={12} sm={12} lg={12}>
                               <div style={styles.field}>
-                                <label>Plan:</label>
+                                <label style={{width:'20%'}}>Plan:</label>
                                 <input type="text" placeholder="" style={styles.input} />
                               </div>
                             </Grid>
@@ -401,19 +396,19 @@ const PatientInfo = ({ patients }: any) => {
                             <h2>Work Information</h2>
                             <Grid item xs={12} sm={12}>
                               <div style={styles.field}>
-                                <label>Status:</label>
+                                <label style={{width:'20%'}}>Status:</label>
                                 <input type="text" placeholder="Delmas65" style={styles.input} />
                               </div>
                             </Grid>                                                                            
                             <Grid item xs={12} sm={12}>
                               <div style={styles.field}>
-                                <label>Employer:</label>
+                                <label style={{width:'20%'}}>Employer:</label>
                                 <input type="text" placeholder="" style={styles.input} />
                               </div>
                             </Grid>
                             <Grid item xs={12} sm={12}>
                               <div style={styles.field}>
-                                <label>Work Ph:</label>
+                                <label style={{width:'20%'}}>Work Ph:</label>
                                 <input type="text" placeholder="" style={styles.input} />
                               </div>
                             </Grid>                            
@@ -480,6 +475,7 @@ const styles = {
   },
   label: {
     marginLeft: '10px',
+    width:'20%',
   },
   input: {
     flex: 1,
