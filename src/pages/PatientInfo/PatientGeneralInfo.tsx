@@ -1,4 +1,5 @@
 import * as Yup from "yup";
+import { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import DocumentScannerIcon from '@mui/icons-material/DocumentScanner';
 import '../../styles.css'
@@ -14,13 +15,86 @@ import {
   Divider,
   Paper,
   IconButton,
-  Avatar
+  Avatar,
+  FormControl,
+  Input,
+  SelectChangeEvent
 } from "@mui/material";
+import ImageUploadCard from "../../components/ClickableAvatar";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Toolbar from "@mui/material/Toolbar";
 import Container from "@mui/material/Container";
 import Appbar from "../../components/Appbar";
 import { Link, useParams } from "react-router-dom";
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { blueGrey, grey } from "@mui/material/colors";
+import SelectGender from "../../components/SelectGender";
+import SelectStatus from "../../components/WorkInformation";
+
+// select marriage
+
+export function Marriage () {
+  // set marriage
+  const [marriage, setMarriage] = useState<string>('');
+  const handleChange = (event: SelectChangeEvent) => {
+      setMarriage(event.target.value);
+    };
+  return (
+    <>
+      <FormControl variant="standard" sx={{ minWidth:490 }}>
+        <InputLabel id="demo-simple-select-standard-label">Marriage</InputLabel>
+        <Select
+          labelId="demo-simple-select-standard-label"
+          id="demo-simple-select-standard"
+          value={marriage}
+          onChange={handleChange}
+          label="Marriage"
+        >
+          <MenuItem value={10}>Married</MenuItem>
+          <MenuItem value={20}>Divorced</MenuItem>
+          <MenuItem value={30}>Separated</MenuItem>
+          <MenuItem value={40}>Widowed</MenuItem>
+          <MenuItem value={50}>Single</MenuItem>
+          <MenuItem value={60}>Cohabiting</MenuItem>
+          <MenuItem value={70}>Polygamous</MenuItem>
+          <MenuItem value={80}>Other</MenuItem>
+        </Select>
+      </FormControl>
+    </>
+  );
+}
+
+// select race
+export function Race () {
+  // set marriage
+  const [race, setRace] = useState<string>('');
+  const handleChange = (event: SelectChangeEvent) => {
+      setRace(event.target.value);
+    };
+  return (
+    <>
+      <FormControl variant="standard" sx={{ minWidth:490 }}>
+        <InputLabel id="demo-simple-select-standard-label">Race</InputLabel>
+        <Select
+          labelId="demo-simple-select-standard-label"
+          id="demo-simple-select-standard"
+          value={race}
+          onChange={handleChange}
+          label="Race"
+        >
+          <MenuItem value={10}>White</MenuItem>
+          <MenuItem value={20}>Black</MenuItem>
+          <MenuItem value={30}>Hispanic</MenuItem>
+          <MenuItem value={40}>Asian</MenuItem>
+          <MenuItem value={50}>Other</MenuItem>
+        </Select>
+      </FormControl>
+    </>
+  );
+}
 
 
 const PatientInfoSchema = Yup.object().shape({
@@ -42,6 +116,8 @@ const PatientInfoSchema = Yup.object().shape({
   diseases: Yup.string().required("Required"),
   patientHistory: Yup.string(),
 });
+
+
 
 const PatientInfo = ({ patients }: any) => {
   const { id } = useParams<{ id: string }>();
@@ -163,259 +239,310 @@ const PatientInfo = ({ patients }: any) => {
                         </Grid>
                       
                         <Grid item xs={12} sm={2} style={{textAlign:'right', padding:'0'}}>
-                          <IconButton style={{padding:'0'}}>
-                              <Avatar 
-                                variant="square"
-                                style={{
-                                  width: "100px",
-                                  height: "100px",
-                                }} 
-                                />
-                          </IconButton>
+                          <ImageUploadCard/>
                         </Grid>
                       
                       </Grid>                     
                       <Grid container spacing={2}>                        
-                        <Grid item xs={6} sm={6}>
-                        <div className="contact-info" style={styles.container} >
+                        <Grid item xs={12} sm={6} md={6}>
+                          <div className="personal-information" style={styles.container}>
                             <h2>Personal Information</h2>
-                            <Grid item xs={12} sm={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>ID:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>                                                                            
-                            <Grid item xs={12} sm={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>MRN:</label>
-                                <input  type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>
-                            <Grid item xs={12} sm={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>DOB:</label>
-                                <input type="date" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>
-                            <Grid item xs={12} sm={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Gender:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>                                                                            
-                            <Grid item xs={12} sm={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Marriage:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>
-                            <Grid item xs={12} sm={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Siblings:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>
-                            <Grid item xs={12} sm={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Race:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>
-                            <Grid item xs={12} sm={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Pharmacy:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>
-                            <Grid item xs={12} sm={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Other:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>
+                            <Grid container rowSpacing={1}>
+                              <FormControl variant="standard" fullWidth>
+                                <InputLabel htmlFor="component-simple">ID:</InputLabel>
+                                <Input id="component-simple" />
+                              </FormControl>
+                              <FormControl variant="standard" fullWidth>
+                                <InputLabel htmlFor="component-simple">MRN:</InputLabel>
+                                <Input id="component-simple" />
+                              </FormControl>
+                              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <DemoContainer components={['DatePicker']} >
+                                  <DatePicker label="DOB"  />
+                                </DemoContainer>
+                              </LocalizationProvider>
+                              <SelectGender width={490}/>
+                              <Marriage/>
+                              <FormControl variant="standard" fullWidth>
+                                <InputLabel htmlFor="component-simple">Siblings:</InputLabel>
+                                <Input id="component-simple" />
+                              </FormControl>
+                              <Race/>
+                              <FormControl variant="standard" fullWidth>
+                                <InputLabel htmlFor="component-simple">Pharmacy:</InputLabel>
+                                <Input id="component-simple" />
+                              </FormControl>
+                              <FormControl variant="standard" fullWidth>
+                                <InputLabel htmlFor="component-simple">Other:</InputLabel>
+                                <Input id="component-simple" />
+                              </FormControl>
+                            </Grid>                       
                           </div>
-                          <div style={styles.container}>
+                          <div className="contact-information" style={styles.container}>
                             <h2>Contact Information</h2>
-                            <Grid item xs={12} sm={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Address:</label>
-                                <input type="text" placeholder="Delmas65" style={styles.input} />
-                              </div>
-                            </Grid>                                                                            
-                            <Grid item xs={12} sm={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>City:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>
-                            <Grid item xs={12} sm={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Postcode:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>
-                            <Grid item xs={12} sm={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Country:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>                                                                            
-                            <Grid item xs={12} sm={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>State:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>
-                            <Grid item xs={12} sm={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Home Ph:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>
-                            <Grid item xs={12} sm={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Cell Ph:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>
-                            <Grid item xs={12} sm={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Email:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>
-                            <Grid item xs={12} sm={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Emergency:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>
-                          </div>                          
+                            <Grid container rowSpacing={1}>
+                              <Grid xs={12}>
+                                <TextField
+                                  id="outlined-multiline-static"
+                                  label="Address"
+                                  multiline
+                                  variant="standard"
+                                  fullWidth
+                                />
+                              </Grid>
+                              <Grid xs={12}>
+                                <TextField
+                                  id="outlined-multiline-static"
+                                  label="City"
+                                  multiline
+                                  variant="standard"
+                                  fullWidth
+                                />
+                              </Grid>
+                              <Grid xs={12}>
+                                <TextField
+                                  id="outlined-multiline-static"
+                                  label="Post Code"
+                                  multiline
+                                  variant="standard"
+                                  fullWidth
+                                />
+                              </Grid>
+                              
+                              <TextField
+                                id="outlined-multiline-static"
+                                label="Country"
+                                multiline
+                                variant="standard"
+                                fullWidth
+                              />
+                              <TextField
+                                id="outlined-multiline-static"
+                                label="State"
+                                multiline
+                                variant="standard"
+                                fullWidth
+                              />
+                              <TextField
+                                id="outlined-multiline-static"
+                                label="Home Ph"
+                                multiline
+                                variant="standard"
+                                fullWidth
+                              />
+                              <TextField
+                                id="outlined-multiline-static"
+                                label="Cell Ph"
+                                multiline
+                                variant="standard"
+                                fullWidth
+                              />
+                              <TextField
+                                id="outlined-multiline-static"
+                                label="Email"
+                                multiline
+                                variant="standard"
+                                fullWidth
+                              />
+                              <TextField
+                                id="outlined-multiline-static"
+                                label="Emergency"
+                                multiline
+                                variant="standard"
+                                fullWidth
+                              />
+                              
+                            </Grid>                       
+                          </div>                                      
                         </Grid>  
-                        <Grid item xs={6} sm={6}>
+                        <Grid item xs={12} sm={6} md={6}>
                           <div style={styles.container}>
                             <h2>Insurance 1</h2>
-                            <Grid item xs={12} sm={12} lg={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Carrier:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>                                                                            
-                            <Grid item xs={12} sm={12} lg={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Address:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>
-                            <Grid item xs={12} sm={12} lg={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>City:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>
-                            <Grid item xs={12} sm={12} lg={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Postcode:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>                                                                            
-                            <Grid item xs={12} sm={12} lg={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Country:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>
-                            <Grid item xs={12} sm={12} lg={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>State:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>
-                            <Grid item xs={12} sm={12} lg={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Phone:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>
-                            <Grid item xs={12} sm={12} lg={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Facsimile:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>
-                            <Grid item xs={12} sm={12} lg={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Plan:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>
-                            <Grid item xs={12} sm={12} lg={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Expiry:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>
-                            <Grid item xs={12} sm={12} lg={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>ID No:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>
-                            <Grid item xs={12} sm={12} lg={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Group No:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>
-                            <Grid item xs={12} sm={12} lg={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Copay:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>
-                            <Grid item xs={12} sm={12} lg={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Auth No:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>
-                            <Grid item xs={12} sm={12} lg={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Remarks:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>
-                            <Grid item xs={12} sm={12} lg={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Plan:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>
+                            <Grid container rowSpacing={1}>
+                              <TextField
+                                id="outlined-multiline-static"
+                                label="Carrier:"
+                                multiline
+                                variant="standard"
+                                fullWidth
+                              />
+                              <TextField
+                                id="outlined-multiline-static"
+                                label="Address:"
+                                multiline
+                                variant="standard"
+                                fullWidth
+                              />
+                              <TextField
+                                id="outlined-multiline-static"
+                                label="City:"
+                                multiline
+                                variant="standard"
+                                fullWidth
+                              />
+                              <TextField
+                                id="outlined-multiline-static"
+                                label="Postcode:"
+                                multiline
+                                variant="standard"
+                                fullWidth
+                              />
+                              <TextField
+                                id="outlined-multiline-static"
+                                label="Country:"
+                                multiline
+                                variant="standard"
+                                fullWidth
+                              />
+                              <TextField
+                                id="outlined-multiline-static"
+                                label="State:"
+                                multiline
+                                variant="standard"
+                                fullWidth
+                              />
+                              <TextField
+                                id="outlined-multiline-static"
+                                label="Phone:"
+                                multiline
+                                variant="standard"
+                                fullWidth
+                              />
+                              <TextField
+                                id="outlined-multiline-static"
+                                label="Facsimile:"
+                                multiline
+                                variant="standard"
+                                fullWidth
+                              />
+                              <TextField
+                                id="outlined-multiline-static"
+                                label="Plan:"
+                                multiline
+                                variant="standard"
+                                fullWidth
+                              /><TextField
+                                id="outlined-multiline-static"
+                                label="Expiry:"
+                                multiline
+                                variant="standard"
+                                fullWidth
+                              />
+                              <TextField
+                                id="outlined-multiline-static"
+                                label="ID No:"
+                                multiline
+                                variant="standard"
+                                fullWidth
+                              />
+                              <TextField
+                                id="outlined-multiline-static"
+                                label="Group No:"
+                                multiline
+                                variant="standard"
+                                fullWidth
+                              />
+                              <TextField
+                                id="outlined-multiline-static"
+                                label="Copay:"
+                                multiline
+                                variant="standard"
+                                fullWidth
+                              />
+                              <TextField
+                                id="outlined-multiline-static"
+                                label="Auth No:"
+                                multiline
+                                variant="standard"
+                                fullWidth
+                              />
+                              <Grid xs={12} paddingBottom={2} borderBottom={1} borderColor={"#cfd8dc"}>
+                                <TextField
+                                  id="outlined-multiline-static"
+                                  label="Remarks:"
+                                  multiline
+                                  variant="standard"
+                                  fullWidth
+                                />
+                              </Grid>
+                              <TextField
+                                id="outlined-multiline-static"
+                                label="Relation:"
+                                multiline
+                                variant="standard"
+                                fullWidth
+                              />
+                              <TextField
+                                id="outlined-multiline-static"
+                                label="Home Ph:"
+                                multiline
+                                variant="standard"
+                                fullWidth
+                              />
+                              <Grid container xs={12}>
+                                <Grid xs={5}>
+                                  <TextField
+                                    id="outlined-multiline-static"
+                                    label="Last Name"
+                                    multiline
+                                    variant="standard"
+                                    fullWidth
+                                  />
+                                </Grid>
+                                <Grid xs={5}>
+                                  <TextField
+                                    id="outlined-multiline-static"
+                                    label="First Name"
+                                    multiline
+                                    variant="standard"
+                                    fullWidth
+                                  />
+                                </Grid>
+                                <Grid xs={2}>
+                                  <TextField
+                                    id="outlined-multiline-static"
+                                    label="MI"
+                                    multiline
+                                    variant="standard"
+                                    fullWidth
+                                  />
+                                </Grid>
+                              </Grid>
+                              
+                              <Grid xs={12} sx={{justifyContent:'space-between',display:'flex'}}>
+                                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                    <DemoContainer components={['DatePicker']} >
+                                      <DatePicker label="DOB"  />
+                                    </DemoContainer>
+                                  </LocalizationProvider>
+                                  <SelectGender margin={2}/>
+                                
+                              </Grid>
+                            </Grid>                                                                           
+                            
                           </div>  
                           <div style={styles.container}>
                             <h2>Work Information</h2>
-                            <Grid item xs={12} sm={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Status:</label>
-                                <input type="text" placeholder="Delmas65" style={styles.input} />
-                              </div>
-                            </Grid>                                                                            
-                            <Grid item xs={12} sm={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Employer:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>
-                            <Grid item xs={12} sm={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Work Ph:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>                            
+                            <SelectStatus/>                                                                           
+                            <TextField
+                                id="outlined-multiline-static"
+                                label="Employer:"
+                                multiline
+                                variant="standard"
+                                fullWidth
+                              />                
+                              <TextField
+                                id="outlined-multiline-static"
+                                label="Work Ph:"
+                                multiline
+                                variant="standard"
+                                fullWidth
+                              />        
                           </div>                        
                         </Grid>                      
                       </Grid>                     
                       <br />
+                        
                       <Grid container justifyContent="flex-end">
                         <Grid item xs={2} sm={1}>
                           <Button
@@ -439,8 +566,9 @@ const PatientInfo = ({ patients }: any) => {
                            variant="contained"
                            >
                             History
-                          </Button>                          
-                        </Grid>s
+                          </Button> 
+                                                 
+                        </Grid>
                       </Grid>
                     </Form>
                   )}

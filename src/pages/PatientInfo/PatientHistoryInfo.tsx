@@ -1,5 +1,7 @@
 import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
+import DocumentScannerIcon from '@mui/icons-material/DocumentScanner';
+import '../../styles.css'
 import {
   TextField,
   InputLabel,
@@ -12,12 +14,22 @@ import {
   Divider,
   Paper,
   IconButton,
+  Avatar,
+  responsiveFontSizes,
+  Input,
+  FormControl
 } from "@mui/material";
+
+import ImageUploadCard from "../../components/ClickableAvatar";
+
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Toolbar from "@mui/material/Toolbar";
 import Container from "@mui/material/Container";
 import Appbar from "../../components/Appbar";
 import { Link, useParams } from "react-router-dom";
+import { DisplaySettings } from "@mui/icons-material";
+import { experimentalStyled as styled } from '@mui/material/styles';
+import Encounter from "../../components/Encounter";
 
 const PatientInfoSchema = Yup.object().shape({
   firstName: Yup.string().required("Required"),
@@ -39,13 +51,14 @@ const PatientInfoSchema = Yup.object().shape({
   patientHistory: Yup.string(),
 });
 
+
 const PatientInfo = ({ patients }: any) => {
   const { id } = useParams<{ id: string }>();
   const patient = patients?.find(
     (patient: any) => patient.id === parseInt(id || "", 10)
   );
-
   const initialValues = {
+    id: patient.id,
     firstName: patient.firstName,
     lastName: patient.lastName,
     address: patient.address,
@@ -66,7 +79,7 @@ const PatientInfo = ({ patients }: any) => {
 
   return (
     <Box sx={{ display: "flex" }}>
-      <Appbar appBarTitle="History" />
+      <Appbar appBarTitle="General" />
       <Box
         component="main"
         sx={{
@@ -80,16 +93,14 @@ const PatientInfo = ({ patients }: any) => {
         }}
       >
         <Toolbar />
+        
         <Container sx={{ mt: 4, mb: 4 }}>
           <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
             <Grid
               container
               spacing={2}
               sx={{ marginleft: "10px", padding: "20px" }}
-            >
-              <IconButton component={Link} to={`/patient-info/${patient.id}`} color="inherit">
-                <ArrowBackIcon />
-              </IconButton>
+            >           
               <Grid item xs={12}>
                 <Formik
                   initialValues={initialValues}
@@ -97,9 +108,29 @@ const PatientInfo = ({ patients }: any) => {
                   onSubmit={handleSubmit}
                 >
                   {({ errors, touched }) => (
+                    
                     <Form>
-                      <Grid container spacing={2}>
-                        <Grid item xs={12} sm={6}>
+                      <Grid item xs={12} sm={12}>
+                      <div className="setside">
+                        <div className="left">
+                          <IconButton component={Link} to="/patient-list" color="inherit">
+                            <ArrowBackIcon />
+                          </IconButton>
+                        </div>                        
+                      </div>
+                        </Grid>  
+                      
+                     <Grid container rowSpacing={2} sx={{justifyContent: "space-between",alignItems: "center",}}>
+                        <Grid item xs={12} sm={1}>
+                          <Field
+                            as={TextField}
+                            name="id"
+                            label="Chart"
+                            fullWidth
+                          />
+                          
+                        </Grid>
+                        <Grid item xs={12} sm={3}>
                           <Field
                             as={TextField}
                             name="firstName"
@@ -109,7 +140,7 @@ const PatientInfo = ({ patients }: any) => {
                             helperText={touched.firstName && errors.firstName}
                           />
                         </Grid>
-                        <Grid item xs={12} sm={6}>
+                        <Grid item xs={12} sm={3}>
                           <Field
                             as={TextField}
                             name="lastName"
@@ -118,40 +149,8 @@ const PatientInfo = ({ patients }: any) => {
                             error={errors.lastName && touched.lastName}
                             helperText={touched.lastName && errors.lastName}
                           />
-                        </Grid>
-                        <Grid item xs={12}>
-                          <Field
-                            as={TextField}
-                            name="address"
-                            label="Address"
-                            fullWidth
-                            error={errors.address && touched.address}
-                            helperText={touched.address && errors.address}
-                          />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                          <Field
-                            as={TextField}
-                            name="phoneNumber"
-                            label="Phone Number"
-                            fullWidth
-                            error={errors.phoneNumber && touched.phoneNumber}
-                            helperText={
-                              touched.phoneNumber && errors.phoneNumber
-                            }
-                          />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                          <Field
-                            as={TextField}
-                            name="email"
-                            label="Email"
-                            fullWidth
-                            error={errors.email && touched.email}
-                            helperText={touched.email && errors.email}
-                          />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
+                        </Grid>                     
+                        <Grid item xs={12} sm={1}>
                           <Field
                             as={TextField}
                             name="age"
@@ -161,134 +160,429 @@ const PatientInfo = ({ patients }: any) => {
                             helperText={touched.age && errors.age}
                           />
                         </Grid>
-                      </Grid>
-                      <Grid container spacing={2}>
-                        <Grid item xs={12} sm={6}>
-                          <InputLabel
-                            id="blood-group-label"
-                            sx={{ align: "left" }}
-                          >
-                            Blood Group
-                          </InputLabel>
-                          <Select
-                            name="bloodGroup"
-                            labelId="blood-group-label"
-                            // value={values.bloodGroup}
-                            // onChange={handleChange}
-                            error={
-                              touched.bloodGroup && Boolean(errors.bloodGroup)
-                            }
-                            fullWidth
-                          >
-                            <MenuItem value="">Select blood group</MenuItem>
-                            <MenuItem value="A+">A+</MenuItem>
-                            <MenuItem value="A-">A-</MenuItem>
-                            <MenuItem value="B+">B+</MenuItem>
-                            <MenuItem value="B-">B-</MenuItem>
-                            <MenuItem value="AB+">AB+</MenuItem>
-                            <MenuItem value="AB-">AB-</MenuItem>
-                            <MenuItem value="O+">O+</MenuItem>
-                            <MenuItem value="O-">O-</MenuItem>
-                          </Select>
-                          {touched.bloodGroup && errors.bloodGroup && (
-                            <Box mt={1} color="red">
-                              {Object.values(errors.bloodGroup).map(
-                                (error: any, index) => (
-                                  <div key={index}>{error}</div>
-                                )
-                              )}
-                            </Box>
-                          )}
+                      
+                        <Grid item xs={12} sm={2} style={{textAlign:'right', paddingRight:'0'}}>
+                          <ImageUploadCard/>
                         </Grid>
+                      
+                      </Grid>                     
+                      <Grid container spacing={2} sx={{display:'flex', flexDirection:'row'}}>                        
+                        <Grid item xs={12} sm={6} md={6}>
+                          <div className="past-medical-history" style={styles.container} >
+                            <h2>Past Medical History</h2>
+                            <TextField 
+                              id="past-medical-history"
+                              fullWidth
+                              multiline 
+                              rows={8}
+                              placeholder="Please write the past medical history" />
+                          </div>
+                          <div style={styles.container} className="past-surgical-history">
+                            <h2>Past Surgical History</h2>
+                            <TextField 
+                              id="past-surgical-history"
+                              fullWidth
+                              multiline 
+                              rows={8}
+                              placeholder="Please write the past surgical history" />
+                          </div>
+                          <div style={styles.container} className="past-surgical-history">
+                            <h2>Known Allergies</h2>
+                            <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                              <Grid item xs={12}>
+                                <FormControl variant="standard" fullWidth>
+                                  <InputLabel htmlFor="component-simple">Allergen</InputLabel>
+                                  <Input id="component-simple" />
+                                </FormControl>
+                              </Grid>
+                              <Grid item xs={8}>
+                                <FormControl variant="standard" fullWidth>
+                                  <InputLabel htmlFor="component-simple">Reaction</InputLabel>
+                                  <Input id="component-simple" />
+                                </FormControl>
+                              </Grid>
+                              <Grid item xs={4}>
+                                <FormControl variant="standard" fullWidth>
+                                  <InputLabel htmlFor="component-simple">Status</InputLabel>
+                                  <Input id="component-simple" />
+                                </FormControl>
+                              </Grid>
+                            </Grid>
+                          </div>
+                          <div style={styles.container} className="past-surgical-history">
+                            <h2>Health Maintenance</h2>
+                            <div className="influenza-vaccine" style={styles.container}>
+                              <label>Influenza Vaccine</label>
+                              <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                                <Grid item xs={4}>
+                                  <FormControl variant="standard">
+                                    <InputLabel htmlFor="component-simple">Date</InputLabel>
+                                    <Input id="component-simple" />
+                                  </FormControl>
+                                </Grid>
+                                <Grid item xs={4}>
+                                  <FormControl variant="standard">
+                                    <InputLabel htmlFor="component-simple">Note</InputLabel>
+                                    <Input id="component-simple" />
+                                  </FormControl>
+                                </Grid>
+                                <Grid item xs={4}>
+                                  <FormControl variant="standard">
+                                    <InputLabel htmlFor="component-simple">Due</InputLabel>
+                                    <Input id="component-simple" />
+                                  </FormControl>
+                                </Grid>
+                                <Grid item xs={4}>
+                                  <FormControl variant="standard">
+                                    <InputLabel htmlFor="component-simple">Dose</InputLabel>
+                                    <Input id="component-simple" />
+                                  </FormControl>
+                                </Grid>
+                                <Grid item xs={4}>
+                                  <FormControl variant="standard">
+                                    <InputLabel htmlFor="component-simple">Lot#</InputLabel>
+                                    <Input id="component-simple" />
+                                  </FormControl>
+                                </Grid>
+                                <Grid item xs={4}>
+                                  <FormControl variant="standard">
+                                    <InputLabel htmlFor="component-simple">MFR</InputLabel>
+                                    <Input id="component-simple" />
+                                  </FormControl>
+                                </Grid>
 
-                        <Divider />
+                              </Grid>
+                            </div>
+                            <div className="pneumococcal-vaccine" style={styles.container}>
+                              <label>Pneumococcal Vaccine</label>
+                              <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                                <Grid item xs={4}>
+                                  <FormControl variant="standard">
+                                    <InputLabel htmlFor="component-simple">Date</InputLabel>
+                                    <Input id="component-simple" />
+                                  </FormControl>
+                                </Grid>
+                                <Grid item xs={4}>
+                                  <FormControl variant="standard">
+                                    <InputLabel htmlFor="component-simple">Note</InputLabel>
+                                    <Input id="component-simple" />
+                                  </FormControl>
+                                </Grid>
+                                <Grid item xs={4}>
+                                  <FormControl variant="standard">
+                                    <InputLabel htmlFor="component-simple">Due</InputLabel>
+                                    <Input id="component-simple" />
+                                  </FormControl>
+                                </Grid>
+                                <Grid item xs={4}>
+                                  <FormControl variant="standard">
+                                    <InputLabel htmlFor="component-simple">Dose</InputLabel>
+                                    <Input id="component-simple" />
+                                  </FormControl>
+                                </Grid>
+                                <Grid item xs={4}>
+                                  <FormControl variant="standard">
+                                    <InputLabel htmlFor="component-simple">Lot#</InputLabel>
+                                    <Input id="component-simple" />
+                                  </FormControl>
+                                </Grid>
+                                <Grid item xs={4}>
+                                  <FormControl variant="standard">
+                                    <InputLabel htmlFor="component-simple">MFR</InputLabel>
+                                    <Input id="component-simple" />
+                                  </FormControl>
+                                </Grid>
 
-                        <Grid item xs={12}>
-                          <Typography variant="h6" align="left">
-                            Referred by Doctor:
-                          </Typography>
-                        </Grid>
-                        <Grid item xs={12}>
-                          <Field
-                            as={TextField}
-                            name="referredByDoctor"
-                            label="Doctor's Name"
-                            fullWidth
-                            error={
-                              errors.referredByDoctor &&
-                              touched.referredByDoctor
-                            }
-                            helperText={
-                              touched.referredByDoctor &&
-                              errors.referredByDoctor
-                            }
-                          />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                          <TextField
-                            fullWidth
-                            name="doctorEmail"
-                            // value={values.doctorEmail}
-                            // onChange={handleChange}
-                            label="Doctor's Email"
-                          />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                          <TextField
-                            fullWidth
-                            name="doctorPhone"
-                            // value={values.doctorPhone}
-                            // onChange={handleChange}
-                            label="Doctor's Phone"
-                          />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                          <TextField
-                            label="Diseases"
-                            name="diseases"
-                            // value={values.diseases}
-                            // onChange={handleChange}
-                            // onBlur={handleBlur}
-                            fullWidth
-                          />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                          <TextField
-                            label="Patient History"
-                            name="patientHistory"
-                            // value={values.patientHistory}
-                            // onChange={handleChange}
-                            // onBlur={handleBlur}
-                            fullWidth
-                          />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                          <TextField
-                            label="Attachments"
-                            name="attachments"
-                            // value={values.attachments}
-                            // onChange={handleChange}
-                            // onBlur={handleBlur}
-                            fullWidth
-                          />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                          <TextField
-                            label="Handled By"
-                            name="handledBy"
-                            // value={values.handledBy}
-                            // onChange={handleChange}
-                            // onBlur={handleBlur}
-                            fullWidth
-                          />
-                        </Grid>
-                      </Grid>
+                              </Grid>
+                            </div>
+                            <div className="colorectal-screening" style={styles.container}>
+                              <label>Colorectal Screening</label>
+                              <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                                <Grid item xs={4}>
+                                  <FormControl variant="standard">
+                                    <InputLabel htmlFor="component-simple">Date</InputLabel>
+                                    <Input id="component-simple" />
+                                  </FormControl>
+                                </Grid>
+                                <Grid item xs={4}>
+                                  <FormControl variant="standard">
+                                    <InputLabel htmlFor="component-simple">Note</InputLabel>
+                                    <Input id="component-simple" />
+                                  </FormControl>
+                                </Grid>
+                                <Grid item xs={4}>
+                                  <FormControl variant="standard">
+                                    <InputLabel htmlFor="component-simple">Due</InputLabel>
+                                    <Input id="component-simple" />
+                                  </FormControl>
+                                </Grid>
+                                <Grid item xs={12}>
+                                  <FormControl variant="standard" fullWidth>
+                                    <InputLabel htmlFor="component-simple">Misc</InputLabel>
+                                    <Input id="component-simple" />
+                                  </FormControl>
+                                </Grid>
+                              </Grid>
+                            </div>
+                            <div className="prostate-screening" style={styles.container}>
+                              <label>Prostate Screening</label>
+                              <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                                <Grid item xs={4}>
+                                  <FormControl variant="standard">
+                                    <InputLabel htmlFor="component-simple">Date</InputLabel>
+                                    <Input id="component-simple" />
+                                  </FormControl>
+                                </Grid>
+                                <Grid item xs={4}>
+                                  <FormControl variant="standard">
+                                    <InputLabel htmlFor="component-simple">Note</InputLabel>
+                                    <Input id="component-simple" />
+                                  </FormControl>
+                                </Grid>
+                                <Grid item xs={4}>
+                                  <FormControl variant="standard">
+                                    <InputLabel htmlFor="component-simple">Due</InputLabel>
+                                    <Input id="component-simple" />
+                                  </FormControl>
+                                </Grid>
+                                <Grid item xs={12}>
+                                  <FormControl variant="standard" fullWidth>
+                                    <InputLabel htmlFor="component-simple">Misc</InputLabel>
+                                    <Input id="component-simple" />
+                                  </FormControl>
+                                </Grid>
+                              </Grid>
+                            </div>
+                            <div className="screening-mammogram" style={styles.container}>
+                              <label>Screening Mammogram</label>
+                              <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                                <Grid item xs={4}>
+                                  <FormControl variant="standard">
+                                    <InputLabel htmlFor="component-simple">Date</InputLabel>
+                                    <Input id="component-simple" />
+                                  </FormControl>
+                                </Grid>
+                                <Grid item xs={4}>
+                                  <FormControl variant="standard">
+                                    <InputLabel htmlFor="component-simple">Note</InputLabel>
+                                    <Input id="component-simple" />
+                                  </FormControl>
+                                </Grid>
+                                <Grid item xs={4}>
+                                  <FormControl variant="standard">
+                                    <InputLabel htmlFor="component-simple">Due</InputLabel>
+                                    <Input id="component-simple" />
+                                  </FormControl>
+                                </Grid>
+                                <Grid item xs={12}>
+                                  <FormControl variant="standard" fullWidth>
+                                    <InputLabel htmlFor="component-simple">Misc</InputLabel>
+                                    <Input id="component-simple" />
+                                  </FormControl>
+                                </Grid>
+                              </Grid>
+                            </div>
+                            <div className="screening-pap-smear" style={styles.container}>
+                              <label>Screening Pap Smear</label>
+                              <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                                <Grid item xs={4}>
+                                  <FormControl variant="standard">
+                                    <InputLabel htmlFor="component-simple">Date</InputLabel>
+                                    <Input id="component-simple" />
+                                  </FormControl>
+                                </Grid>
+                                <Grid item xs={4}>
+                                  <FormControl variant="standard">
+                                    <InputLabel htmlFor="component-simple">Note</InputLabel>
+                                    <Input id="component-simple" />
+                                  </FormControl>
+                                </Grid>
+                                <Grid item xs={4}>
+                                  <FormControl variant="standard">
+                                    <InputLabel htmlFor="component-simple">Due</InputLabel>
+                                    <Input id="component-simple" />
+                                  </FormControl>
+                                </Grid>
+                                <Grid item xs={12}>
+                                  <FormControl variant="standard" fullWidth>
+                                    <InputLabel htmlFor="component-simple">Misc</InputLabel>
+                                    <Input id="component-simple" />
+                                  </FormControl>
+                                </Grid>
+                              </Grid>
+                            </div>
+                          </div>                         
+                        </Grid>  
+                        <Grid item xs={12} sm={6} md={6}>
+                          <div className="family-history" style={styles.container}>
+                            <h2>Family History</h2>
+                            <FormControl variant="standard" fullWidth>
+                              <InputLabel htmlFor="component-simple">Diabetes</InputLabel>
+                              <Input id="component-simple" />
+                            </FormControl>
+                            <FormControl variant="standard" fullWidth>
+                              <InputLabel htmlFor="component-simple">Stroke</InputLabel>
+                              <Input id="component-simple" />
+                            </FormControl>
+                            <FormControl variant="standard" fullWidth>
+                              <InputLabel htmlFor="component-simple">Hypertension</InputLabel>
+                              <Input id="component-simple" />
+                            </FormControl>
+                            <FormControl variant="standard" fullWidth>
+                              <InputLabel htmlFor="component-simple">Heart Disease</InputLabel>
+                              <Input id="component-simple" />
+                            </FormControl>
+                            <FormControl variant="standard" fullWidth>
+                              <InputLabel htmlFor="component-simple">Cancer</InputLabel>
+                              <Input id="component-simple" />
+                            </FormControl>
+                            <FormControl variant="standard" fullWidth>
+                              <InputLabel htmlFor="component-simple">Asthma</InputLabel>
+                              <Input id="component-simple" />
+                            </FormControl>
+                            <FormControl variant="standard" fullWidth>
+                              <InputLabel htmlFor="component-simple">Hay Fever</InputLabel>
+                              <Input id="component-simple" />
+                            </FormControl>
+                            <FormControl variant="standard" fullWidth>
+                              <InputLabel htmlFor="component-simple">Arthritis</InputLabel>
+                              <Input id="component-simple" />
+                            </FormControl>
+                            <FormControl variant="standard" fullWidth>
+                              <InputLabel htmlFor="component-simple">Osteoporosis</InputLabel>
+                              <Input id="component-simple" />
+                            </FormControl>
+                            <FormControl variant="standard" fullWidth>
+                              <InputLabel htmlFor="component-simple">Anemia</InputLabel>
+                              <Input id="component-simple" />
+                            </FormControl>
+                            <FormControl variant="standard" fullWidth>
+                              <InputLabel htmlFor="component-simple">Migraine</InputLabel>
+                              <Input id="component-simple" />
+                            </FormControl>
+                            <FormControl variant="standard" fullWidth>
+                              <InputLabel htmlFor="component-simple">Alzheimers</InputLabel>
+                              <Input id="component-simple" />
+                            </FormControl>
+                            <FormControl variant="standard" fullWidth>
+                              <InputLabel htmlFor="component-simple">Epilepsy</InputLabel>
+                              <Input id="component-simple" />
+                            </FormControl>
+                            <FormControl variant="standard" fullWidth>
+                              <InputLabel htmlFor="component-simple">Glaucoma</InputLabel>
+                              <Input id="component-simple" />
+                            </FormControl>
+                            
+                          </div>  
+                          <div className="social-history" style={styles.container}>
+                            <h2>Social History</h2>
+                            <FormControl variant="standard" fullWidth>
+                              <InputLabel htmlFor="component-simple">Alcohol Use</InputLabel>
+                              <Input id="component-simple" />
+                            </FormControl>
+                            <FormControl variant="standard" fullWidth>
+                              <InputLabel htmlFor="component-simple">Caffeine Use</InputLabel>
+                              <Input id="component-simple" />
+                            </FormControl>
+                            <FormControl variant="standard" fullWidth>
+                              <InputLabel htmlFor="component-simple">Tobacco Use</InputLabel>
+                              <Input id="component-simple" />
+                            </FormControl>
+                            <FormControl variant="standard" fullWidth>
+                              <InputLabel htmlFor="component-simple">Drugs Use</InputLabel>
+                              <Input id="component-simple" />
+                            </FormControl>
+                            <FormControl variant="standard" fullWidth>
+                              <InputLabel htmlFor="component-simple">Chm Exposure</InputLabel>
+                              <Input id="component-simple" />
+                            </FormControl>
+                            <FormControl variant="standard" fullWidth>
+                              <InputLabel htmlFor="component-simple">TB Exposure</InputLabel>
+                              <Input id="component-simple" />
+                            </FormControl>
+                            <FormControl variant="standard" fullWidth>
+                              <InputLabel htmlFor="component-simple">HIV Exposure</InputLabel>
+                              <Input id="component-simple" />
+                            </FormControl>
+                            <FormControl variant="standard" fullWidth>
+                              <InputLabel htmlFor="component-simple">Sex Relations</InputLabel>
+                              <Input id="component-simple" />
+                            </FormControl>
+                            <FormControl variant="standard" fullWidth>
+                              <InputLabel htmlFor="component-simple">Exercise</InputLabel>
+                              <Input id="component-simple" />
+                            </FormControl>
+                            <FormControl variant="standard" fullWidth>
+                              <InputLabel htmlFor="component-simple">Sleep Habits</InputLabel>
+                              <Input id="component-simple" />
+                            </FormControl>                            
+                          </div>
+                          <div className="master-problem-list" style={styles.container}>
+                              <h2>Master Problem List</h2>
+                              <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                                <Grid item xs={4}>
+                                  <FormControl variant="standard">
+                                    <InputLabel htmlFor="component-simple">Code</InputLabel>
+                                    <Input id="component-simple" />
+                                  </FormControl>
+                                </Grid>
+                                <Grid item xs={4}>
+                                  <FormControl variant="standard">
+                                    <InputLabel htmlFor="component-simple">Onset</InputLabel>
+                                    <Input id="component-simple" />
+                                  </FormControl>
+                                </Grid>
+                                <Grid item xs={4}>
+                                  <FormControl variant="standard">
+                                    <InputLabel htmlFor="component-simple">Nature</InputLabel>
+                                    <Input id="component-simple" />
+                                  </FormControl>
+                                </Grid>
+                                <Grid item xs={8}>
+                                  <FormControl variant="standard" fullWidth>
+                                    <InputLabel htmlFor="component-simple">Desc</InputLabel>
+                                    <Input id="component-simple" />
+                                  </FormControl>
+                                </Grid>
+                                <Grid item xs={4}>
+                                  <FormControl variant="standard" fullWidth>
+                                    <InputLabel htmlFor="component-simple">Status</InputLabel>
+                                    <Input id="component-simple" />
+                                  </FormControl>
+                                </Grid>
+                              </Grid>
+                          </div>
+                          <div className="master-medication-list" style={styles.container}>
+                              <h2>Master Medication List</h2>
+                              <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                                <Grid item xs={12}>
+                                  <FormControl variant="standard" fullWidth>
+                                    <InputLabel htmlFor="component-simple">Rx</InputLabel>
+                                    <Input id="component-simple" />
+                                  </FormControl>
+                                </Grid>
+                                <Grid item xs={8}>
+                                  <FormControl variant="standard" fullWidth>
+                                    <InputLabel htmlFor="component-simple">Sig</InputLabel>
+                                    <Input id="component-simple" />
+                                  </FormControl>
+                                </Grid>
+                                <Grid item xs={4}>
+                                  <FormControl variant="standard" fullWidth>
+                                    <InputLabel htmlFor="component-simple">Status</InputLabel>
+                                    <Input id="component-simple" />
+                                  </FormControl>
+                                </Grid>
+                              </Grid>
+                          </div>                        
+                        </Grid>                      
+                      </Grid>                     
                       <br />
-                      <Grid container justifyContent="flex-end">
+                      <Grid container justifyContent="flex-end" sx={{p: 5}}>
                         <Grid item xs={2} sm={1}>
                           <Button
                             component={Link}
-                            to="/patient-list"
+                            to={`/patient-info/${patient.id}`}
                             color="inherit"
                           >
                             Cancel
@@ -302,7 +596,7 @@ const PatientInfo = ({ patients }: any) => {
                         <Grid item xs={2} sm={1}>
                           <Button 
                            component={Link}
-                           to={`/patient-info-encounter/${patient.id}`}
+                           to={`/patient-info-encounter/${patient.id}`}                          
                            color="warning"
                            variant="contained"
                            >
@@ -310,6 +604,7 @@ const PatientInfo = ({ patients }: any) => {
                           </Button>                          
                         </Grid>
                       </Grid>
+                      
                     </Form>
                   )}
                 </Formik>
@@ -320,6 +615,40 @@ const PatientInfo = ({ patients }: any) => {
       </Box>
     </Box>
   );
+};
+
+const styles = {
+  container: {
+    border: '1px solid lightgray',
+    borderRadius: '5px',
+    padding: '20px',
+    margin: 'auto',
+    marginTop: '20px',
+    
+  },
+  header: {
+    textAlign: 'center',
+  },
+   subHeader: {
+    marginTop: '20px',
+  },
+  field: {
+    display: 'flex',
+    alignItems: 'center',
+    marginBottom: '10px',
+  },
+  label: {
+    marginLeft: '10px',
+    width:'20%',
+  },
+  input: {
+    flex: 1,
+    marginLeft: '10px',
+    padding: '5px',
+    border: '1px solid lightgray',
+    borderRadius: '3px',
+  },
+ 
 };
 
 export default PatientInfo;

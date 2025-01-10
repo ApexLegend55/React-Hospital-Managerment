@@ -19,6 +19,8 @@ import Account from "./pages/Account/Account";
 import Settings from "./pages/Settings/Settings";
 import { mockPatientData } from "./mockData";
 import PdfViewer from "./components/Pdf";
+import Encounter from "./components/Encounter";
+
 
 const USER_TYPES = {
   NORMAL_USER: "Normal User",
@@ -163,6 +165,14 @@ export const router = createBrowserRouter([
     element: (
       <AdminElement>
         <PdfViewer />
+      </AdminElement>
+    )
+  },
+  {
+    path: "/encounter",
+    element: (
+      <AdminElement>
+        <Encounter />
       </AdminElement>
     )
   }

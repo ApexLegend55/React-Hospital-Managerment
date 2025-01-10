@@ -1,5 +1,6 @@
 import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
+import { useState } from "react";
 import {
   TextField,
   InputLabel,
@@ -10,6 +11,7 @@ import {
   Typography,
   Box,
   Divider,
+  SelectChangeEvent,
   Paper,
   IconButton,
   FormControlLabel,
@@ -26,6 +28,8 @@ import Toolbar from "@mui/material/Toolbar";
 import Container from "@mui/material/Container";
 import Appbar from "../../components/Appbar";
 import { Link, useParams } from "react-router-dom";
+import SelectLocation from "../../components/Encounter/SelectLocation";
+import SelectQuality from "../../components/Encounter/SelectQuality";
 
 
 
@@ -186,146 +190,121 @@ const PatientEncounterInfo = ({ patients }: any) => {
                       </Grid>                     
                       <Grid container spacing={2}>                        
                         <Grid item xs={6} sm={6}>
-                        <div style={styles.container} >
-                            <h2>Contact Information</h2>
-                            <Grid item xs={12} sm={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Encounter:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>                                                                            
-                            <Grid item xs={12} sm={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Date:</label>
-                                <input  type="date" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>
-                            <Grid item xs={12} sm={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Refered by:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>  
-                            <Grid item xs={12} sm={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Attened by:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>                                                        
+                        <div className="contact-information" style={styles.container}>
+                            <Grid container rowSpacing={1}>
+                              <Grid xs={4}>
+                                <TextField
+                                  id="outlined-multiline-static"
+                                  label="Encounter"
+                                  multiline
+                                  variant="standard"
+                                  disabled
+                                  fullWidth
+                                />
+                              </Grid>
+                              <Grid xs={4}>
+                                <TextField
+                                  id="outlined-multiline-static"
+                                  label="Date"
+                                  multiline
+                                  variant="standard"
+                                  fullWidth
+                                />
+                              </Grid>
+                              <Grid xs={4}>
+                                <TextField
+                                  id="outlined-multiline-static"
+                                  label="Type"
+                                  multiline
+                                  variant="standard"
+                                  fullWidth
+                                />
+                              </Grid>
+                              
+                              <TextField
+                                id="outlined-multiline-static"
+                                label="Attended by"
+                                multiline
+                                variant="standard"
+                                fullWidth
+                              />                             
+                            </Grid>                       
                           </div>
-                          <div style={styles.container}>
+                          <div className="past-medical-history" style={styles.container} >
                             <h2>Chief Complaint / Encounter Reason</h2>
-                            <Grid item xs={12} sm={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Address:</label>
-                                <input type="text" placeholder="Delmas65" style={styles.input} />
-                              </div>
-                            </Grid>                                                                            
-                            <Grid item xs={12} sm={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>City:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>
-                            <Grid item xs={12} sm={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Postcode:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>
-                            <Grid item xs={12} sm={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Country:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>                                                                            
-                            <Grid item xs={12} sm={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>State:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>
-                            <Grid item xs={12} sm={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Home Ph:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>
-                            <Grid item xs={12} sm={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Cell Ph:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>
-                            <Grid item xs={12} sm={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Email:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>
-                            <Grid item xs={12} sm={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Emergency:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>
+                              <TextField 
+                                id="past-medical-history"
+                                fullWidth
+                                InputProps={{
+                                  style: {
+                                    borderRadius: "0px",
+                                  }
+                                }}
+                                multiline 
+                                rows={2}
+                                placeholder="Please write the past medical history" />
                           </div>  
                           <div style={styles.container}>
                             <h2>History of Present Illness</h2>
                             <Grid item xs={12} sm={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Location:</label>
-                                <input type="text" placeholder="Delmas65" style={styles.input} />
-                              </div>
+                              <TextField 
+                                  id="past-medical-history"
+                                  fullWidth
+                                  InputProps={{
+                                    style: {
+                                      borderRadius: "0px",
+                                    }
+                                  }}
+                                  multiline 
+                                  rows={2}
+                                  placeholder="Please write the past medical history" />
+                            </Grid>
+                            <Grid item xs={12} sm={12}>
+                              <FormControl variant="standard" fullWidth>
+                                <SelectLocation/>
+                              </FormControl>
+                            </Grid>
+                            <Grid item xs={12} sm={12}>
+                              <FormControl variant="standard" fullWidth>
+                                  <SelectQuality width={490}/>
+                              </FormControl>
+                            </Grid>
+                            <Grid item xs={12} sm={12}>
+                              <FormControl variant="standard" fullWidth>
+                                  <InputLabel htmlFor="component-simple">Severity:</InputLabel>
+                                  <Input id="component-simple" />
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={12} sm={12}>
+                              <FormControl variant="standard" fullWidth>
+                                  <InputLabel htmlFor="component-simple">Duration:</InputLabel>
+                                  <Input id="component-simple" />
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={12} sm={12}>
+                              <FormControl variant="standard" fullWidth>
+                                  <InputLabel htmlFor="component-simple">Onset-Timing:</InputLabel>
+                                  <Input id="component-simple" />
+                                </FormControl>
                             </Grid>                                                                            
                             <Grid item xs={12} sm={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Quality:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
+                              <FormControl variant="standard" fullWidth>
+                                  <InputLabel htmlFor="component-simple">Context:</InputLabel>
+                                  <Input id="component-simple" />
+                                </FormControl>
                             </Grid>
                             <Grid item xs={12} sm={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Severity:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
+                              <FormControl variant="standard" fullWidth>
+                                  <InputLabel htmlFor="component-simple">Modifying Factors:</InputLabel>
+                                  <Input id="component-simple" />
+                                </FormControl>
                             </Grid>
                             <Grid item xs={12} sm={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Duration:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>                                                                            
-                            <Grid item xs={12} sm={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Onset-Timing:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>
-                            <Grid item xs={12} sm={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Context:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>
-                            <Grid item xs={12} sm={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Cell Ph:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>
-                            <Grid item xs={12} sm={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Modifying Factors:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>
-                            <Grid item xs={12} sm={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Signs-Symptoms:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>
+                              <FormControl variant="standard" fullWidth>
+                                  <InputLabel htmlFor="component-simple">Signs-Symptoms:</InputLabel>
+                                  <Input id="component-simple" />
+                                </FormControl>
+                            </Grid>                            
                           </div>                         
                           <div style={styles.container}>
                             <Grid container spacing={2}>
@@ -529,30 +508,39 @@ const PatientEncounterInfo = ({ patients }: any) => {
                             </Grid>
                             <Grid item xs={12} sm={12}>
                               <TextField fullWidth sx={{ m: 1 }} id="standard-basic"  variant="standard" />
-                            </Grid> 
-                                                                                          
-                            
+                            </Grid>                   
                           </div> 
                           <div style={styles.container}>
-                            <h2>Work Information</h2>
-                            <Grid item xs={12} sm={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Status:</label>
-                                <input type="text" placeholder="Delmas65" style={styles.input} />
-                              </div>
-                            </Grid>                                                                            
-                            <Grid item xs={12} sm={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Employer:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
+                            <h2>Order / Requistion</h2>
+                            <Grid container spacing={2}>                               
+                              <Grid item xs={1} sm={1} md={1}>                                
+                                <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
+                                  <label style={{marginRight:'4px'}}>1</label>
+                                  <TextField id="input-with-sx" variant="standard" />
+                                </Box>
+                              </Grid>                             
+                              <Grid item xs={9} sm={9} md={9}>                                
+                                <FormControl fullWidth  variant="standard">                                
+                                    <Input
+                                      id="standard-adornment-amount"
+                                      startAdornment={<InputAdornment position="start"></InputAdornment>}
+                                    />
+                                </FormControl>
+                              </Grid>
+                              <Grid item xs={1} sm={1} md={1}>
+                                <FormControl fullWidth  variant="standard">                                
+                                    <Input
+                                      id="standard-adornment-amount"
+                                      startAdornment={<InputAdornment position="start"></InputAdornment>}
+                                    />
+                                </FormControl>
+                              </Grid>   
+                              <Grid item xs={1} sm={1} md={1}>
+                                <IconButton  color="inherit">
+                                  <DeleteIcon />
+                                </IconButton>   
+                              </Grid>                                            
                             </Grid>
-                            <Grid item xs={12} sm={12}>
-                              <div style={styles.field}>
-                                <label style={{width:'20%'}}>Work Ph:</label>
-                                <input type="text" placeholder="" style={styles.input} />
-                              </div>
-                            </Grid>                            
                           </div>                        
                         </Grid>                      
                       </Grid>                     
