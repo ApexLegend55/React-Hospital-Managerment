@@ -25,7 +25,7 @@ import ImageUploadCard from "../../components/ClickableAvatar";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Toolbar from "@mui/material/Toolbar";
 import Container from "@mui/material/Container";
-import Appbar_Patient from "../../components/Appbar_Patientlist";
+import Appbar from "../../components/Appbar";
 import { Link, useParams } from "react-router-dom";
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -177,28 +177,24 @@ const PatientInfoSchema = Yup.object().shape({
   patientHistory: Yup.string(),
 });
 
+const initialValues = {
+  id: "",
+  firstName: "",
+  lastName: "",
+  address: "",
+  phoneNumber: "",
+  email: "",
+  age: "",
+  bloodGroup: "",
+  referredByDoctor: "",
+  referredByDoctorEmail: "",
+  referredByDoctorPhoneNumber: "",
+  diseases: "",
+  patientHistory: "",
+};
 
-
-const PatientInfo = ({ patients }: any) => {
-  const { id } = useParams<{ id: string }>();
-  const patient = patients?.find(
-    (patient: any) => patient.id === parseInt(id || "", 10)
-  );
-  const initialValues = {
-    id: patient.id,
-    firstName: patient.firstName,
-    lastName: patient.lastName,
-    address: patient.address,
-    phoneNumber: patient.phoneNumber,
-    email: patient.email,
-    age: patient.age,
-    bloodGroup: patient.bloodGroup,
-    referredByDoctor: patient.referredByDoctor,
-    referredByDoctorEmail: patient.referredByDoctorEmail,
-    referredByDoctorPhoneNumber: patient.referredByDoctorPhoneNumber,
-    diseases: patient.diseases,
-    patientHistory: patient.patientHistory,
-  };
+const PatientInfoEdit = () => {
+ 
   const handleSubmit = (values: any, { resetForm }: any) => {
     console.log(values);
     //resetForm();
@@ -206,7 +202,7 @@ const PatientInfo = ({ patients }: any) => {
 
   return (
     <Box sx={{ display: "flex" }}>
-      <Appbar_Patient appBarTitle="General" />
+      <Appbar appBarTitle="General" />
       <Box
         component="main"
         sx={{
@@ -229,8 +225,8 @@ const PatientInfo = ({ patients }: any) => {
               sx={{ marginleft: "10px", padding: "20px" }}
             >           
               <Grid item xs={12}>
-                <Formik
-                  initialValues={initialValues}
+                <Formik  
+                  initialValues={initialValues}                
                   validationSchema={PatientInfoSchema}
                   onSubmit={handleSubmit}
                 >
@@ -263,8 +259,6 @@ const PatientInfo = ({ patients }: any) => {
                             name="firstName"
                             label="First Name"
                             fullWidth
-                            error={errors.firstName && touched.firstName}
-                            helperText={touched.firstName && errors.firstName}
                           />
                         </Grid>
                         <Grid item xs={12} sm={3}>
@@ -273,8 +267,6 @@ const PatientInfo = ({ patients }: any) => {
                             name="lastName"
                             label="Last Name"
                             fullWidth
-                            error={errors.lastName && touched.lastName}
-                            helperText={touched.lastName && errors.lastName}
                           />
                         </Grid>                     
                         <Grid item xs={12} sm={1}>
@@ -702,7 +694,7 @@ const PatientInfo = ({ patients }: any) => {
                         <Grid item xs={2} sm={1}>
                           <Button 
                            component={Link}
-                           to={`/patient-info-history/${patient.id}`}
+                           to={`/patient-info-history`}
                            color="warning"
                            variant="contained"
                            >
@@ -756,4 +748,4 @@ const styles = {
  
 };
 
-export default PatientInfo;
+export default PatientInfoEdit;

@@ -517,25 +517,22 @@ const PatientInfoSchema = Yup.object().shape({
 });
 
 
-const PatientInfo = ({ patients }: any) => {
-  const { id } = useParams<{ id: string }>();
-  const patient = patients?.find(
-    (patient: any) => patient.id === parseInt(id || "", 10)
-  );
+const PatientInfoHistoryInfoEdit = ({ patients }: any) => {
+
   const initialValues = {
-    id: patient.id,
-    firstName: patient.firstName,
-    lastName: patient.lastName,
-    address: patient.address,
-    phoneNumber: patient.phoneNumber,
-    email: patient.email,
-    age: patient.age,
-    bloodGroup: patient.bloodGroup,
-    referredByDoctor: patient.referredByDoctor,
-    referredByDoctorEmail: patient.referredByDoctorEmail,
-    referredByDoctorPhoneNumber: patient.referredByDoctorPhoneNumber,
-    diseases: patient.diseases,
-    patientHistory: patient.patientHistory,
+    id: "",
+    firstName: "",
+    lastName: "",
+    address: "",
+    phoneNumber: "",
+    email: "",
+    age: "",
+    bloodGroup: "",
+    referredByDoctor: "",
+    referredByDoctorEmail: "",
+    referredByDoctorPhoneNumber: "",
+    diseases: "",
+    patientHistory: "",
   };
   const handleSubmit = (values: any, { resetForm }: any) => {
     console.log(values);
@@ -1070,7 +1067,7 @@ const PatientInfo = ({ patients }: any) => {
                         <Grid item xs={2} sm={1}>
                           <Button
                             component={Link}
-                            to={`/patient-info/${patient.id}`}
+                            to={`/patient-info-general`}
                             color="inherit"
                           >
                             Cancel
@@ -1084,7 +1081,7 @@ const PatientInfo = ({ patients }: any) => {
                         <Grid item xs={2} sm={1}>
                           <Button 
                            component={Link}
-                           to={`/patient-info-encounter/${patient.id}`}
+                           to={`/patient-info-encounter`}
                            color="warning"
                            variant="contained"
                            >
@@ -1139,4 +1136,4 @@ const styles = {
  
 };
 
-export default PatientInfo;
+export default PatientInfoHistoryInfoEdit;

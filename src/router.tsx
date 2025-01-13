@@ -8,9 +8,12 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import AllOrders from "./pages/Orders/AllOrders";
 import Profile from "./pages/Profile/Profile";
 import DoctorList from "./pages/Profile/DoctorList";
+import PatientGeneralInfoEdit from "./pages/PatientInfo/PatientGeneralInfoEdit";
+import PatientInfoHistoryInfoEdit from "./pages/PatientInfo/PatientHistoryInfoEdit";
 import PatientInfo from "./pages/PatientInfo/PatientGeneralInfo";
 import PatientHistoryInfo from "./pages/PatientInfo/PatientHistoryInfo";
 import PatientEncounterInfo from "./pages/PatientInfo/PatientEncounterInfo";
+
 import PatientList from "./pages/PatientInfo/PatientList";
 import Appointments from "./pages/Appointments/Appointments";
 import Calender from "./pages/Calender/Calender";
@@ -80,6 +83,30 @@ export const router = createBrowserRouter([
     )
   },
   {
+    path: "/patient-info-general",
+    element: (
+      <AdminElement>
+        <PatientGeneralInfoEdit/>
+      </AdminElement>
+    )
+  },
+  {
+    path: "/patient-info-history",
+    element: (
+      <AdminElement>
+        <PatientInfoHistoryInfoEdit/>
+      </AdminElement>
+    )
+  },
+  {
+    path: "/patient-info-encounter",
+    element: (
+      <AdminElement>
+        <PatientEncounterInfo/>
+      </AdminElement>
+    )
+  },
+  {
     path: "/patient-info/:id",
     element: (
       <AdminElement>
@@ -87,6 +114,7 @@ export const router = createBrowserRouter([
       </AdminElement>
     )
   },
+  
   {
     path: "/patient-info-history/:id",
     element: (

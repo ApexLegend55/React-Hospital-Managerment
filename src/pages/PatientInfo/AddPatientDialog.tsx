@@ -19,6 +19,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import { Link, useParams } from "react-router-dom";
 
 type FormValues = {
   id: string;
@@ -82,6 +83,8 @@ export default function AddPatientDialog({
           variant="outlined"
           startIcon={<AddIcon />}
           onClick={handleClickOpen}
+          component={Link}
+          to={`/doctor-list`}
         >
           Add Patient
         </Button>

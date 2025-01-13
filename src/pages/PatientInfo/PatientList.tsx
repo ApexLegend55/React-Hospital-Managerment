@@ -7,9 +7,10 @@ import {
   TableHead,
   TableRow,
   Paper,
-  Grid,
+  Grid,  
   Box,
-  TablePagination
+  TablePagination,
+  Button
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import Chip from "@mui/material/Chip";
@@ -18,6 +19,7 @@ import Container from "@mui/material/Container";
 import Appbar from "../../components/Appbar";
 import AddPatientDialog from "./AddPatientDialog";
 import { mockPatientData } from "../../mockData";
+import AddIcon from "@mui/icons-material/Add";
 
 function PatientList({ data }: any) {
   const [patients, setPatients] = React.useState(mockPatientData);
@@ -71,11 +73,14 @@ function PatientList({ data }: any) {
         <Toolbar />
 
         <Container sx={{ mt: 4, mb: 4 }}>
-          <AddPatientDialog
-            patients={patients}
-            setPatients={setPatients}
-            handleChange={handleChange}
-          />
+          <Button
+            variant="outlined"
+            component={Link}
+            to={`/patient-info-general`}
+            startIcon={<AddIcon />}            
+          >
+            Create Patient
+          </Button>
           <Grid
             container
             spacing={2}

@@ -27,8 +27,8 @@ const primarynavList = [
     icon: <DashboardIcon />,
   },
   {
-    link: "/profile",
-    label: "Doctor Profile",
+    // link: "/profile",
+    // label: "Doctor Profile",
     icon: <AccountCircleIcon />,
   },
   {
@@ -42,55 +42,55 @@ const primarynavList = [
     icon: <SickIcon />,
   },
   {
-    link: "/appointments",
-    label: "Appointments",
+    // link: "/appointments",
+    // label: "Appointments",
     icon: <BookOnlineIcon />,
   },
   {
-    link: "/calender",
-    label: "Calender",
+    // link: "/calender",
+    // label: "Calender",
     icon: <CalendarMonthIcon />,
   },
   {
-    link: "/kanban",
-    label: "Kanban",
+    // link: "/kanban",
+    // label: "Kanban",
     icon: <ViewKanbanIcon />,
   },
   {
-    link: "/account",
-    label: "Account",
+    // link: "/account",
+    // label: "Account",
     icon: <ManageAccountsIcon />,
   },
 ];
 
 const secondaryNavList = [
   {
-    link: "/lab-results",
+//    link: "/lab-results",
     label: "Lab Results",
     icon: <ReceiptLongIcon />,
   },
   {
-    link: "/medical-records",
+//    link: "/medical-records",
     label: "Medical Records",
     icon: <DescriptionIcon />,
   },
   {
-    link: "/prescriptions",
+//    link: "/prescriptions",
     label: "Prescriptions",
     icon: <AssignmentTurnedInIcon />,
   },
   {
-    link: "/plans",
+ //   link: "/plans",
     label: "Care Plans",
     icon: <AssignmentIcon />,
   },
   {
-    link: "/forms",
+  //  link: "/forms",
     label: "Forms",
     icon: <DescriptionIcon />,
   },
   {
-    link: "/help",
+ //   link: "/help",
     label: "Get Help",
     icon: <HelpIcon />,
   },
@@ -100,7 +100,7 @@ const secondaryNavList = [
     icon: <SettingsIcon />,
   },
   {
-    link: "/login",
+   link: "/login",
     label: "Logout",
     icon: <LogoutIcon />,
   },
@@ -134,9 +134,9 @@ export const secondaryListItems = (
         to={data.link}
         style={{ textDecoration: "none", color: "inherit" }}
       >
-        <ListItemButton>
-          <ListItemIcon>{data.icon}</ListItemIcon>
-          <ListItemText primary={data.label} />
+        <ListItemButton disabled>
+          <ListItemIcon >{data.icon}</ListItemIcon>
+          <ListItemText primary={data.label}/>
         </ListItemButton>
       </Link>
     ))}
