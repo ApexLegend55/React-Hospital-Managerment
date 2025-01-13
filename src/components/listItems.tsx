@@ -27,8 +27,8 @@ const primarynavList = [
     icon: <DashboardIcon />,
   },
   {
-    // link: "/profile",
-    // label: "Doctor Profile",
+    link: "/profile",
+    label: "Doctor Profile",
     icon: <AccountCircleIcon />,
   },
   {
@@ -42,23 +42,23 @@ const primarynavList = [
     icon: <SickIcon />,
   },
   {
-    // link: "/appointments",
-    // label: "Appointments",
+    link: "/appointments",
+    label: "Appointments",
     icon: <BookOnlineIcon />,
   },
   {
-    // link: "/calender",
-    // label: "Calender",
+    link: "/calender",
+    label: "Calender",
     icon: <CalendarMonthIcon />,
   },
   {
-    // link: "/kanban",
-    // label: "Kanban",
+    link: "/kanban",
+    label: "Kanban",
     icon: <ViewKanbanIcon />,
   },
   {
-    // link: "/account",
-    // label: "Account",
+    link: "/account",
+    label: "Account",
     icon: <ManageAccountsIcon />,
   },
 ];
