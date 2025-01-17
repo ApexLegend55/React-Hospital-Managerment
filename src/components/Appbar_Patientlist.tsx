@@ -1,31 +1,44 @@
-import * as React from "react";
+import React from "react";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
-import MenuIcon from "@mui/icons-material/Menu";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
 import Avatar from "@mui/material/Avatar";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import { mainListItems, secondaryListItems } from "./listItems";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-import { Link } from "react-router-dom";
-import { settings } from "../constant";
+import MenuIcon from "@mui/icons-material/Menu";
+import { Link, useLocation } from "react-router-dom";
 import { AppBar, Drawer } from "../styles";
+import { settings } from "../constant";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import List from "@mui/material/List";
+import Divider from "@mui/material/Divider";
+import { mainListItems, secondaryListItems } from "./listItems";
 
-export default function Appbar(props: { appBarTitle: string }) {
+export default function Appbar_Patient(props: { appBarTitle: string; id: Number }) {
+  const location = useLocation(); // Get current route
+  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
   const [open, setOpen] = React.useState(true);
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-    null
-  );
+
+  // Define tab paths
+  const tabs = [
+    { label: "GENERAL", path: `/patient-info/${props.id}` },
+    { label: "HISTORY", path: `/patient-info-history/${props.id}` },
+    { label: "ENCOUNTER", path: `/patient-info-encounter/${props.id}` },
+  ];
+
+  // Determine the currently active tab based on the route
+  const currentTab = tabs.findIndex((tab) => tab.path === location.pathname);
+
   const toggleDrawer = () => {
     setOpen(!open);
   };
+
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -37,11 +50,7 @@ export default function Appbar(props: { appBarTitle: string }) {
   return (
     <Box sx={{ display: "flex" }}>
       <AppBar position="absolute" open={open}>
-        <Toolbar
-          sx={{
-            pr: "24px" // keep right padding when drawer closed
-          }}
-        >
+        <Toolbar sx={{ height: "64px", pr: "24px" }}>
           <IconButton
             edge="start"
             color="inherit"
@@ -49,27 +58,33 @@ export default function Appbar(props: { appBarTitle: string }) {
             onClick={toggleDrawer}
             sx={{
               marginRight: "36px",
-              ...(open && { display: "none" })
+              ...(open && { display: "none" }),
             }}
           >
             <MenuIcon />
           </IconButton>
-          <Typography
-            component="h1"
-            variant="h6"
-            color="inherit"
-            noWrap
-            sx={{ flexGrow: 1 }}
-          >
-            {props.appBarTitle}
-          </Typography>
-
-          <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
+          <Typography component="h1" variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
+            <Tabs
+              value={currentTab} // Bind the value to the current tab index
+              onChange={() => {}} // No need for manual change handler since navigation happens via `Link`
+              textColor="inherit"
+              indicatorColor="secondary"
+              sx={{height:"100%",minHeight: "64px"}}
+              
             >
+              {tabs.map((tab, index) => (
+                <Tab
+                  key={index}
+                  label={tab.label}
+                  component={Link}
+                  to={tab.path}
+                  sx={{height:"100%",minHeight: "64px"}}
+                />
+              ))}
+            </Tabs>
+          </Typography>
+          <Box sx={{ display: { xs: "none", md: "flex" } }}>
+            <IconButton size="large" aria-label="show 17 new notifications" color="inherit">
               <Badge badgeContent={17} color="secondary">
                 <NotificationsIcon />
               </Badge>
@@ -90,24 +105,15 @@ export default function Appbar(props: { appBarTitle: string }) {
               sx={{ mt: "45px" }}
               id="menu-appbar"
               anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right"
-              }}
+              anchorOrigin={{ vertical: "top", horizontal: "right" }}
               keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right"
-              }}
+              transformOrigin={{ vertical: "top", horizontal: "right" }}
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting, index) => (
                 <MenuItem key={index} onClick={handleCloseUserMenu}>
-                  <Link
-                    to={setting.url}
-                    style={{ textDecoration: "none", color: "inherit" }}
-                  >
+                  <Link to={setting.url} style={{ textDecoration: "none", color: "inherit" }}>
                     <Typography textAlign="center">{setting.text}</Typography>
                   </Link>
                 </MenuItem>
@@ -117,16 +123,10 @@ export default function Appbar(props: { appBarTitle: string }) {
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
-        <Toolbar
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            px: [1]
-          }}
-        >
+        <Toolbar sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", px: [1] }}>
           <Typography variant="h4" align="center">
-            <img src="/hospital.svg" height="40px" />
+            {/* alt="logo" */}
+            <img src="/hospital.svg" height="40px"  alt="logo"/>
             <span style={{ color: "#005B93" }}>EALTHY</span>
           </Typography>
           <IconButton onClick={toggleDrawer}>

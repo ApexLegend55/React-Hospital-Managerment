@@ -8,7 +8,9 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import AllOrders from "./pages/Orders/AllOrders";
 import Profile from "./pages/Profile/Profile";
 import DoctorList from "./pages/Profile/DoctorList";
-import PatientInfo from "./pages/PatientInfo/PatientInfo";
+import PatientInfo from "./pages/PatientInfo/PatientGeneralInfo";
+import PatientHistoryInfo from "./pages/PatientInfo/PatientHistoryInfo";
+import PatientEncounterInfo from "./pages/PatientInfo/PatientEncounterInfo";
 import PatientList from "./pages/PatientInfo/PatientList";
 import Appointments from "./pages/Appointments/Appointments";
 import Calender from "./pages/Calender/Calender";
@@ -16,6 +18,10 @@ import Kanban from "./pages/Kanban/Kanban";
 import Account from "./pages/Account/Account";
 import Settings from "./pages/Settings/Settings";
 import { mockPatientData } from "./mockData";
+import PdfViewer from "./components/Pdf";
+import Search from "./pages/Search/Search";
+import Administrator from "./pages/Administrator/Administrator";
+import Forms from "./pages/Forms/Form";
 
 const USER_TYPES = {
   NORMAL_USER: "Normal User",
@@ -83,6 +89,22 @@ export const router = createBrowserRouter([
     )
   },
   {
+    path: "/patient-info-history/:id",
+    element: (
+      <AdminElement>
+        <PatientHistoryInfo patients={mockPatientData} />
+      </AdminElement>
+    )
+  },
+  {
+    path: "/patient-info-encounter/:id",
+    element: (
+      <AdminElement>
+        <PatientEncounterInfo patients={mockPatientData} />
+      </AdminElement>
+    )
+  },  
+  {
     path: "/patient-list",
     element: (
       <AdminElement>
@@ -91,6 +113,15 @@ export const router = createBrowserRouter([
     )
   },
   {
+    path: "/administrator",
+    element: (
+      <AdminElement>
+        <Administrator/>
+      </AdminElement>
+    )
+  },
+/*  
+  {
     path: "/doctor-list",
     element: (
       <AdminElement>
@@ -98,6 +129,7 @@ export const router = createBrowserRouter([
       </AdminElement>
     )
   },
+*/
   {
     path: "/appointments",
     element: (
@@ -137,5 +169,29 @@ export const router = createBrowserRouter([
         <Settings />
       </AdminElement>
     )
-  }
+  },
+  {
+    path: "/pdf-viewer",
+    element: (
+      <AdminElement>
+        <PdfViewer />
+      </AdminElement>
+    )
+  },
+  {
+    path: "/search",
+    element: (
+      <AdminElement>
+        <Search />
+      </AdminElement>
+    )
+  },
+  {
+    path:"/forms",
+    element: (
+      <AdminElement>
+        <Forms/>
+      </AdminElement>
+    )
+  },
 ]);

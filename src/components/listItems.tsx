@@ -12,6 +12,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import DescriptionIcon from "@mui/icons-material/Description";
 import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
 import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
+import SearchSharpIcon from '@mui/icons-material/SearchSharp';
 import HelpIcon from "@mui/icons-material/Help";
 import SettingsIcon from "@mui/icons-material/Settings";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
@@ -19,6 +20,8 @@ import BookOnlineIcon from "@mui/icons-material/BookOnline";
 import SickIcon from "@mui/icons-material/Sick";
 import ViewKanbanIcon from "@mui/icons-material/ViewKanban";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+
 
 const primarynavList = [
   {
@@ -32,10 +35,16 @@ const primarynavList = [
     icon: <AccountCircleIcon />,
   },
   {
+    link: "/administrator",
+    label: "administrator",
+    icon: <AdminPanelSettingsIcon/>,
+  },
+/*  {
     link: "/doctor-list",
     label: "Doctor List",
     icon: <PeopleIcon />,
   },
+*/
   {
     link: "/patient-list",
     label: "Patient List",
@@ -88,6 +97,11 @@ const secondaryNavList = [
     link: "/forms",
     label: "Forms",
     icon: <DescriptionIcon />,
+  },
+  {
+    link: "/search",
+    label: "Search",
+    icon: <SearchSharpIcon />,
   },
   {
     link: "/help",
